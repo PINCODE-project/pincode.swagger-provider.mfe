@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  pincode_swaggerprovider_mfe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3050:5001"
+    networks:
+      - pincode_swaggerprovider_mfe_network
+
+networks:
+  pincode_swaggerprovider_mfe_network:
+    driver: bridge
