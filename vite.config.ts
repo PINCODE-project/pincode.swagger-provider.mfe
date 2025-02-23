@@ -16,5 +16,5 @@ export default defineConfig({
             "@store": path.resolve(__dirname, "./src/store"),
         },
     },
-    plugins: [react(), analyzer({ analyzerPort: 3001 })],
+    plugins: [react(), analyzer({ analyzerPort: 3001, openAnalyzer: false })],
 });
