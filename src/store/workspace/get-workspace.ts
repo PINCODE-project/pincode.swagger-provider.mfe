@@ -1,5 +1,5 @@
-import { apiDomain } from "@/store/api";
-import { workspaceControllerFindAll, workspaceControllerFindOne } from "@/store/api/swagger-provider-api";
+import { apiDomain } from "@store/api";
+import { workspaceControllerFindAll, workspaceControllerFindOne } from "@store/api/swagger-provider-api";
 import { AxiosResponse } from "axios";
 
 /**

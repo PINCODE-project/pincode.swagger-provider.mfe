@@ -1,4 +1,4 @@
-import { apiDomain } from "@/store/api";
+import { apiDomain } from "@store/api";
 
 export const $profile = apiDomain.store<any | null>(null);
 export const setProfile = apiDomain.event<any | null>();

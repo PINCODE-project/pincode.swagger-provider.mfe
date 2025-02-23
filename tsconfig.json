@@ -1,46 +1,55 @@
 {
   "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
     "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
     ],
-    "target": "es2016",
-    "jsx": "react-jsx",
-    "moduleResolution": "node",
-    "module": "esnext",
-    "resolveJsonModule": true,
+    "module": "ESNext",
+    "skipLibCheck": true,
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "isolatedModules": true,
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true,
-    "outDir": "build",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    /* Linting */
     "strict": true,
-    "alwaysStrict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "allowUnusedLabels": true,
-    "allowUnreachableCode": false,
-    "skipDefaultLibCheck": true,
-    "skipLibCheck": true,
-    "baseUrl": "src",
+    "noUncheckedSideEffectImports": true,
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
+      "@/*": [
+        "src/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@model/*": [
+        "src/model/*"
+      ],
+      "@router/*": [
+        "src/router/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ]
     }
   },
   "include": [
-    "src"
+    "src",
+    "vite.config.ts",
+    "postcss.config.mjs",
+    "tailwind.config.ts"
   ],
   "files": ["types.d.ts"]
 }

@@ -1,9 +1,9 @@
-import { createDomain, createEvent } from 'effector';
+import { createDomain, createEvent } from "effector";
 
-export const apiDomain = createDomain('api');
+export const apiDomain = createDomain("api");
 
 export const resetDomain = createEvent();
 
 apiDomain.onCreateStore((store) => {
-  store.reset(resetDomain);
+    store.reset(resetDomain);
 });

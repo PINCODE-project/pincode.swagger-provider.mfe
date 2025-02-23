@@ -6,11 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export type CreateMicroserviceDtoType = typeof CreateMicroserviceDtoType[keyof typeof CreateMicroserviceDtoType];
-
+export type CreateMicroserviceDtoType = (typeof CreateMicroserviceDtoType)[keyof typeof CreateMicroserviceDtoType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CreateMicroserviceDtoType = {
-  URL: 'URL',
-  TEXT: 'TEXT',
+    URL: "URL",
+    TEXT: "TEXT",
 } as const;

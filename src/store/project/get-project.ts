@@ -1,6 +1,7 @@
-import { apiDomain } from "../api";
-import { projectControllerFindAllBuWorkspace } from "@/store/api/swagger-provider-api";
+import { projectControllerFindAllBuWorkspace } from "@store/api/swagger-provider-api";
 import { AxiosResponse } from "axios";
+
+import { apiDomain } from "../api";
 
 /**
  * Получение проектов пространства

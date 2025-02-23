@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { Command, DraftingCompass, LayoutList, Server } from "lucide-react";
-
 import {
     Sidebar,
     SidebarContent,
@@ -15,12 +14,12 @@ import {
     ThemeToggle,
     useSidebar,
 } from "@pin-code/uikit.lib";
-import { NavUser } from "@/components/Sidebar/NavUser";
-import { $profile } from "@/store/auth/profile";
+import { NavUser } from "@components/Sidebar/NavUser";
+import { $profile } from "@store/auth/profile";
 import { useUnit } from "effector-react";
 import { Link, useParams } from "react-router-dom";
-import { HomeRouter } from "@/router/routes/home";
-import { WorkspaceRouter } from "@/router/routes/workspace";
+import { HomeRouter } from "@router/routes/home";
+import { WorkspaceRouter } from "@router/routes/workspace";
 
 export type NavItem = {
     title: string;
@@ -122,7 +121,7 @@ const AppSidebar: FC<AppSidebarProps> = ({ secondSidebar }) => {
                         <SidebarMenu>
                             <SidebarMenuItem>
                                 <SidebarMenuButton size="lg" asChild className="md:!h-8 md:!p-0">
-                                    {/*{isLoadingGetWorkspaces ? <Loader /> : <TeamSwitcher teams={teams} />}*/}
+                                    {/* {isLoadingGetWorkspaces ? <Loader /> : <TeamSwitcher teams={teams} />} */}
                                     <Link
                                         to={
                                             workspaceId

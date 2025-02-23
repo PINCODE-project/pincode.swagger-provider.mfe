@@ -7,5 +7,5 @@
  */
 
 export type AuthControllerCallbackParams = {
-code: string;
+    code: string;
 };

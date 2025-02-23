@@ -1,10 +1,11 @@
+import { authRouteConfig } from "@router/routes/auth";
+import Layout from "@components/Layout";
+import { homeRouteConfig } from "@router/routes/home";
+import { workspaceRouteConfig } from "@router/routes/workspace";
+import { microserviceRouteConfig } from "@router/routes/microservice";
+import MicroserviceSidebar from "@components/Sidebar/MicroserviceSidebar";
+
 import { ConfigRouteProps } from "../types";
-import { authRouteConfig } from "@/router/routes/auth";
-import Layout from "@/components/Layout";
-import { homeRouteConfig } from "@/router/routes/home";
-import { workspaceRouteConfig } from "@/router/routes/workspace";
-import { microserviceRouteConfig } from "@/router/routes/microservice";
-import MicroserviceSidebar from "@/components/Sidebar/MicroserviceSidebar";
 
 export const routeConfig: ConfigRouteProps[] = [
     ...authRouteConfig,

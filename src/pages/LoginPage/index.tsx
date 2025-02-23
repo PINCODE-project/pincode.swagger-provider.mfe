@@ -1,9 +1,9 @@
 import { useNestAuthProvider } from "@pin-code/uikit.lib";
 import { useNavigate } from "react-router-dom";
-import { AuthRouter } from "@/router/routes/auth";
-import { FullLoginPage } from "@/components/LoginPage";
+import { AuthRouter } from "@router/routes/auth";
+import { FullLoginPage } from "@components/LoginPage";
 import { GalleryVerticalEnd } from "lucide-react";
-import { oauthLoginFx } from "@/store/auth/oauth";
+import { oauthLoginFx } from "@store/auth/oauth";
 
 const LoginPage = () => {
     const navigate = useNavigate();

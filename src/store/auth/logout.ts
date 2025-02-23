@@ -1,5 +1,5 @@
-import { apiDomain, resetDomain } from "@/store/api";
-import { authControllerLogout } from "@/store/api/swagger-provider-api";
+import { apiDomain, resetDomain } from "@store/api";
+import { authControllerLogout } from "@store/api/swagger-provider-api";
 import { AxiosResponse } from "axios";
 import { sample } from "effector";
 

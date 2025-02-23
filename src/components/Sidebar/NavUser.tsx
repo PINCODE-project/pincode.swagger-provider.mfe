@@ -1,5 +1,4 @@
 import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from "lucide-react";
-
 import {
     Avatar,
     AvatarFallback,
@@ -16,7 +15,7 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@pin-code/uikit.lib";
-import { logout } from "@/store/auth/logout";
+import { logout } from "@store/auth/logout";
 
 export function NavUser({
     user,

@@ -6,16 +6,16 @@
  * OpenAPI spec version: 1.0
  */
 
-export * from './addMemberToWorkspaceDto';
-export * from './addMemberToWorkspaceDtoRole';
-export * from './authControllerCallbackParams';
-export * from './confirmationDto';
-export * from './createMicroserviceDto';
-export * from './createMicroserviceDtoType';
-export * from './createProjectDto';
-export * from './createWorkspaceDto';
-export * from './loginDto';
-export * from './newPasswordDto';
-export * from './registerDto';
-export * from './resetPasswordDto';
-export * from './updateUserDto';
+export * from "./addMemberToWorkspaceDto";
+export * from "./addMemberToWorkspaceDtoRole";
+export * from "./authControllerCallbackParams";
+export * from "./confirmationDto";
+export * from "./createMicroserviceDto";
+export * from "./createMicroserviceDtoType";
+export * from "./createProjectDto";
+export * from "./createWorkspaceDto";
+export * from "./loginDto";
+export * from "./newPasswordDto";
+export * from "./registerDto";
+export * from "./resetPasswordDto";
+export * from "./updateUserDto";

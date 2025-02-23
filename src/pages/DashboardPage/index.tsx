@@ -1,4 +1,4 @@
-import WelcomeWorkspaceCreate from "@/components/WelcomeWorkspaceCreate";
+import WelcomeWorkspaceCreate from "@components/WelcomeWorkspaceCreate";
 
 const DashboardPage = () => {
     return (

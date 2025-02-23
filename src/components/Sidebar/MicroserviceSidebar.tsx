@@ -10,11 +10,11 @@ import {
     SidebarNavigation,
 } from "@pin-code/uikit.lib";
 import { Search } from "lucide-react";
-import { NavItem } from "@/components/Sidebar/index";
+import { NavItem } from "@components/Sidebar/index";
 import { FC, useEffect, useMemo } from "react";
 import { useUnit } from "effector-react/effector-react.umd";
-import { $projects, getProjectsFx } from "@/store/project/get-project";
-import Loader from "@/components/Loader";
+import { $projects, getProjectsFx } from "@store/project/get-project";
+import Loader from "@components/Loader";
 
 const MicroserviceSidebar: FC = () => {
     const [getProjects, isLoadingGetProjects] = useUnit([getProjectsFx, getProjectsFx.pending]);
@@ -68,7 +68,7 @@ const MicroserviceSidebar: FC = () => {
 
     useEffect(() => {
         getProjects("9214d1f3-2abe-488b-ad00-fc2a136ba419");
-    }, []);
+    }, [getProjects]);
 
     return (
         <Sidebar

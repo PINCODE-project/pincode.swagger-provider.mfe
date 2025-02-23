@@ -7,8 +7,8 @@
  */
 
 export interface CreateProjectDto {
-  name: string;
-  emoji: string;
-  description: string;
-  workspaceId: string;
+    name: string;
+    emoji: string;
+    description: string;
+    workspaceId: string;
 }

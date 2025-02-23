@@ -1,7 +1,7 @@
 import { FC, useCallback } from "react";
 import { Route, RouteProps, Routes } from "react-router-dom";
-import { ConfigRouteProps } from "./types";
 
+import { ConfigRouteProps } from "./types";
 import { routeConfig } from "./routes";
 import { ProtectRoute } from "./ProtectRoute";
 

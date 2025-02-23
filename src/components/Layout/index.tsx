@@ -1,5 +1,5 @@
 import { SidebarProvider } from "@pin-code/uikit.lib";
-import { AppSidebar } from "@/components/Sidebar";
+import { AppSidebar } from "@components/Sidebar";
 import { Outlet } from "react-router-dom";
 import { CSSProperties, FC } from "react";
 

@@ -5,11 +5,11 @@
  * 123
  * OpenAPI spec version: 1.0
  */
-import type { CreateMicroserviceDtoType } from './createMicroserviceDtoType';
+import type { CreateMicroserviceDtoType } from "./createMicroserviceDtoType";
 
 export interface CreateMicroserviceDto {
-  name: string;
-  type: CreateMicroserviceDtoType;
-  content: string;
-  projectId: string;
+    name: string;
+    type: CreateMicroserviceDtoType;
+    content: string;
+    projectId: string;
 }

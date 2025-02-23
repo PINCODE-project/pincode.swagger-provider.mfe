@@ -77,7 +77,7 @@ class OperationSummary extends PureComponent {
                     ) : null}
                 </button>
                 {/* eslint-disable-next-line react/prop-types */}
-                {/*<CopyToClipboardBtn textToCopy={`${specPath.get(1)}`} />*/}
+                {/* <CopyToClipboardBtn textToCopy={`${specPath.get(1)}`} /> */}
                 {allowAnonymous ? null : (
                     <AuthorizeOperationBtn
                         isAuthorized={isAuthorized}

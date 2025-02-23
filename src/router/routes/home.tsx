@@ -1,6 +1,7 @@
-import { ConfigRouteProps } from "../types";
 import { Navigate } from "react-router-dom";
-import DashboardPage from "@/pages/DashboardPage";
+import DashboardPage from "@pages/DashboardPage";
+
+import { ConfigRouteProps } from "../types";
 
 export const HomeRouter = {
     HomePage: "/dashboard",

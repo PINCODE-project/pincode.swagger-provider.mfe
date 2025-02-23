@@ -1,5 +1,4 @@
 import { ChevronsUpDown, Plus } from "lucide-react";
-
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -13,7 +12,7 @@ import {
     useSidebar,
 } from "@pin-code/uikit.lib";
 import { FC, ReactNode, useState } from "react";
-import Loader from "@/components/Loader";
+import Loader from "@components/Loader";
 
 type TeamType = {
     name: string;
@@ -65,7 +64,7 @@ const TeamSwitcher: FC<TeamSwitcherProps> = ({ teams, className }) => {
                                     <div className="size-4 shrink-0">{team.logo}</div>
                                 </div>
                                 {team.name}
-                                {/*<DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>*/}
+                                {/* <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut> */}
                             </DropdownMenuItem>
                         ))}
                         <DropdownMenuSeparator />

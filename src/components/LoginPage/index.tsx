@@ -1,7 +1,8 @@
 import { ComponentProps, FC, ReactNode } from "react";
-import { LoginForm, LoginFormProps } from "./login-form";
 import { ThemeToggle } from "@pin-code/uikit.lib";
 import { Link } from "react-router-dom";
+
+import { LoginForm, LoginFormProps } from "./login-form";
 
 type FullLoginPageProps = LoginFormProps & {
     logo: ReactNode;

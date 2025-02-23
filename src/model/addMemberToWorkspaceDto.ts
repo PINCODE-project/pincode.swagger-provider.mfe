@@ -5,10 +5,10 @@
  * 123
  * OpenAPI spec version: 1.0
  */
-import type { AddMemberToWorkspaceDtoRole } from './addMemberToWorkspaceDtoRole';
+import type { AddMemberToWorkspaceDtoRole } from "./addMemberToWorkspaceDtoRole";
 
 export interface AddMemberToWorkspaceDto {
-  userId: string;
-  workspaceId: string;
-  role: AddMemberToWorkspaceDtoRole;
+    userId: string;
+    workspaceId: string;
+    role: AddMemberToWorkspaceDtoRole;
 }

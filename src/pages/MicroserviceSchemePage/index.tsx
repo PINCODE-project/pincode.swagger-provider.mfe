@@ -1,7 +1,7 @@
 import SwaggerUI from "swagger-ui-react";
 import "swagger-ui-react/swagger-ui.css";
 import "./swagger.scss";
-import OperationSummaryPlugin from "@/components/SwaggerUI/plugins/OperationSummary";
+import OperationSummaryPlugin from "@components/SwaggerUI/plugins/OperationSummary";
 
 const MicroserviceSchemePage = () => {
     console.log("{EQ");

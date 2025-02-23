@@ -1,6 +1,6 @@
-import { Typography } from "@/components/Typography";
+import { Typography } from "@components/Typography";
 import { useUnit } from "effector-react";
-import { $profile } from "@/store/auth/profile";
+import { $profile } from "@store/auth/profile";
 
 const WelcomeWorkspaceCreate = () => {
     const profile = useUnit($profile);

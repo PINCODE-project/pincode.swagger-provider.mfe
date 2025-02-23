@@ -7,7 +7,7 @@
  */
 
 export interface CreateWorkspaceDto {
-  name: string;
-  emoji: string;
-  description: string;
+    name: string;
+    emoji: string;
+    description: string;
 }

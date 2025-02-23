@@ -5,8 +5,9 @@
  * 123
  * OpenAPI spec version: 1.0
  */
-import { axiosInstance as axios } from "./axios";
 import type { AxiosRequestConfig, AxiosResponse } from "axios";
+
+import { axiosInstance as axios } from "./axios";
 import type {
     AddMemberToWorkspaceDto,
     AuthControllerCallbackParams,
