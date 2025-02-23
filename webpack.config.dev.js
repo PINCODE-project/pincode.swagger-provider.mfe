@@ -77,6 +77,7 @@ module.exports = (env, options) => {
                 "@/*": path.resolve(__dirname, "./src/"),
                 "@/pages": path.resolve(__dirname, "./src/pages"),
                 "@/components": path.resolve(__dirname, "./src/components"),
+                "@/domain": path.resolve(__dirname, "./src/domain"),
                 "@/lib": path.resolve(__dirname, "./src/lib"),
                 "@/hooks": path.resolve(__dirname, "./src/hooks"),
                 "@/data": path.resolve(__dirname, "./src/data"),
