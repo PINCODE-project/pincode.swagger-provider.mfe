@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-    baseURL: "http://localhost:9001/",
+    baseURL: "https://pincode-dev.ru/swagger/",
     withCredentials: true,
 });
