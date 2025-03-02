@@ -1,2 +1,2 @@
-/api/*    https://pincode-dev.ru/swagger
+/api/*    https://pincode-dev.ru/swagger/:splat
 /*      /index.html  200
