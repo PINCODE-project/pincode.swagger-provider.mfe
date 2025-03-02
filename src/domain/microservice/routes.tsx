@@ -1,6 +1,6 @@
-import MicroserviceSchemePage from "@pages/MicroserviceSchemePage";
+import { ConfigRouteProps } from "@router/types";
 
-import { ConfigRouteProps } from "../types";
+import MicroserviceSchemePage from "./pages/MicroserviceSchemePage";
 
 export const MicroserviceRouter = {
     MicroserviceSchemePage: (workspaceId: string, microserviceId: string) =>

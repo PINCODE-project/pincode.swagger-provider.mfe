@@ -1,4 +1,4 @@
-import { ConfigRouteProps } from "../types";
+import { ConfigRouteProps } from "@router/types";
 
 export const WorkspaceRouter = {
     WorkspacePage: (workspaceId: string) => `/workspace/${workspaceId}`,
