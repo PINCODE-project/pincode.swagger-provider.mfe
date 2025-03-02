@@ -59,7 +59,7 @@ export const Form = ({
                         <FormItem>
                             <FormLabel>Emoji</FormLabel>
                             <FormControl>
-                                <Input {...field}/>
+                                <EmojiSelect value={field.value} handleChange={(value) =>field.onChange(value)}/>
                             </FormControl>
                             <FormMessage />
                         </FormItem>

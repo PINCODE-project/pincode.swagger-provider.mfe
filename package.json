@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@emoji-mart/data": "^1.2.1",
+    "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^4.1.1",
     "@pin-code/uikit.lib": "^1.1.0",
     "axios": "^1.7.9",
@@ -14,6 +16,7 @@
     "effector-localstorage": "^1.0.0",
     "effector-react": "^23.3.0",
     "embla-carousel-react": "^8.5.1",
+    "emoji-mart": "^5.6.0",
     "input-otp": "^1.4.1",
     "katex": "^0.16.21",
     "lowlight": "^3.3.0",
