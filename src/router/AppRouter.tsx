@@ -25,7 +25,6 @@ export const AppRouter: FC<AppRouterProps> = ({ element, path }) => {
         [],
     );
 
-    console.log(routeConfig.map(renderRoute));
     return (
         <Routes>
             <Route key="/" path={path} element={element}>
