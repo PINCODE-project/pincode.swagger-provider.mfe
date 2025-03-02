@@ -4,9 +4,9 @@ import { AuthCallbackPage } from "./pages/AuthCallbackPage";
 import { LoginPage } from "./pages/LoginPage";
 
 export const AuthRouter = {
-    LoginPage: "/login",
-    RegistrationPage: "/registration",
-    ForgotPasswordPage: "/forgot-password",
+    LoginPage: "/auth/login",
+    RegistrationPage: "/auth/registration",
+    ForgotPasswordPage: "/auth/forgot-password",
     AuthCallbackPage: "/auth/callback",
 };
 

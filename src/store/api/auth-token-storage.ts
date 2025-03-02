@@ -1,28 +1,26 @@
-export class AuthTokenStorage {
-    private static accessTokenKey = "access-token";
-    private static refreshTokenKey = "refresh-token";
+const accessTokenKey = "access-token";
+const refreshTokenKey = "refresh-token";
 
-    static getAccessToken() {
-        return localStorage.getItem(AuthTokenStorage.accessTokenKey);
-    }
+export function getAccessToken() {
+    return localStorage.getItem(accessTokenKey);
+}
 
-    static setAccessToken(accessToken: string) {
-        localStorage.setItem(AuthTokenStorage.accessTokenKey, accessToken);
-    }
+export function setAccessToken(accessToken: string) {
+    localStorage.setItem(accessTokenKey, accessToken);
+}
 
-    static resetAccessToken() {
-        localStorage.removeItem(AuthTokenStorage.accessTokenKey);
-    }
+export function resetAccessToken() {
+    localStorage.removeItem(accessTokenKey);
+}
 
-    static getRefreshToken() {
-        return localStorage.getItem(AuthTokenStorage.refreshTokenKey);
-    }
+export function getRefreshToken() {
+    return localStorage.getItem(refreshTokenKey);
+}
 
-    static setRefreshToken(refreshToken: string) {
-        localStorage.setItem(AuthTokenStorage.refreshTokenKey, refreshToken);
-    }
+export function setRefreshToken(refreshToken: string) {
+    localStorage.setItem(refreshTokenKey, refreshToken);
+}
 
-    static resetRefreshToken() {
-        localStorage.removeItem(AuthTokenStorage.refreshTokenKey);
-    }
+export function resetRefreshToken() {
+    localStorage.removeItem(refreshTokenKey);
 }
