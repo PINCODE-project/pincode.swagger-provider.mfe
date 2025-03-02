@@ -9,6 +9,7 @@ export const AuthCallbackPage = () => {
 
     useEffect(() => {
         const accessToken = searchParams.get("accessToken");
+
         if (accessToken) {
             AuthTokenStorage.setAccessToken(accessToken);
             setIsAuth(true);
