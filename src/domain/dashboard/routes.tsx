@@ -1,4 +1,4 @@
-import { ConfigRouteProps } from "@/router/types"; 
+import { ConfigRouteProps } from "@router/types";
 
 import DashboardPage from "./pages/DashboardPage";
 

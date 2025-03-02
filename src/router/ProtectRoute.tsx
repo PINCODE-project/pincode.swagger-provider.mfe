@@ -2,9 +2,8 @@ import { FC, PropsWithChildren, useEffect } from "react";
 import { Navigate, useSearchParams } from "react-router-dom";
 import { useUnit } from "effector-react";
 import { Loader } from "lucide-react";
-
 import { $isAuth, checkTokenFx, setIsAuth } from "@store/auth/token";
-import { AuthRouter } from "@/domain/auth";
+import { AuthRouter } from "@domain/auth";
 
 import { HomeRouter } from "./routes";
 

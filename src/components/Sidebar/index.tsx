@@ -18,8 +18,8 @@ import { NavUser } from "@components/Sidebar/NavUser";
 import { $profile } from "@store/auth/profile";
 import { useUnit } from "effector-react";
 import { Link, useParams } from "react-router-dom";
-import { WorkspaceRouter } from "@/domain/workspace";
-import { HomeRouter } from "@/router/routes";
+import { WorkspaceRouter } from "@domain/workspace";
+import { HomeRouter } from "@router/routes";
 
 export type NavItem = {
     title: string;
