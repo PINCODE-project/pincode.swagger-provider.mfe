@@ -1,22 +1,4 @@
-import { getAccessToken } from "./auth-token-storage";
 import { axiosInstance } from "./axios";
-
-/**
- * Интерсептор на добавление авторизационного токена
- */
-axiosInstance.interceptors.request.use(
-    (config) => {
-        const token = getAccessToken();
-
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
-    },
-);
 
 /**
  * Интерсептор на обработку авторизационной ошибки
