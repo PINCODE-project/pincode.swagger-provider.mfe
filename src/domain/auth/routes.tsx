@@ -1,6 +1,6 @@
-import { LoginPage } from "@pages/LoginPage";
+import { LoginPage } from "./pages/LoginPage";
 
-import { ConfigRouteProps } from "../types";
+import { ConfigRouteProps } from "@/router/types"; 
 
 export const AuthRouter = {
     LoginPage: "/login",
