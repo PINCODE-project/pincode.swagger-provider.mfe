@@ -20,8 +20,6 @@ const MicroserviceSidebar: FC = () => {
     const [getProjects, isLoadingGetProjects] = useUnit([getProjectsFx, getProjectsFx.pending]);
     const projects = useUnit($projects);
 
-    console.log(projects);
-
     const isLoading = isLoadingGetProjects;
 
     const items: NavItem[] = useMemo(() => {

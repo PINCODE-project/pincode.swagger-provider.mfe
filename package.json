@@ -15,6 +15,7 @@
     "effector": "^23.3.0",
     "effector-localstorage": "^1.0.0",
     "effector-react": "^23.3.0",
+    "effector-storage": "^7.1.0",
     "lucide-react": "^0.475.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

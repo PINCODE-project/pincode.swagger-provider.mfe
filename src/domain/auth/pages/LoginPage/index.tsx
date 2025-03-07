@@ -15,7 +15,6 @@ const LoginPage = () => {
         forgotPasswordPage: AuthRouter.ForgotPasswordPage,
         registrationPage: AuthRouter.RegistrationPage,
     });
-    console.log("LOGIN PAGE");
 
     return (
         // @ts-ignore

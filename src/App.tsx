@@ -1,7 +1,10 @@
 import { BrowserRouter, Link, useLocation } from "react-router-dom";
 import { RouterProvider, Toaster } from "@pin-code/uikit.lib";
 
+import "@store/api/interceptors";
+
 import { AppRouter } from "./router/AppRouter";
+
 import "./styles/globals.scss";
 import "@pin-code/uikit.lib/dist/static/css/main.css";
 

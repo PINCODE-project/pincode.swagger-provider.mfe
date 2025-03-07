@@ -29,8 +29,6 @@ export const ProtectRoute: FC<Props> = ({ withAuthGuard, withNoAuthGuard, childr
         if (isAuth === null) verifyToken();
     }, [isAuth]);
 
-    // console.log("CHECK", token, isAuth);
-
     // Если есть токен, но ещё не проверили его
     if (isAuth === null) {
         return <Loader className="animate-spin top-[50%] left-[50%] absolute" />;
