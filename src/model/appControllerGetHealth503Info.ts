@@ -6,8 +6,10 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface CreateWorkspaceDto {
-  name: string;
-  emoji: string;
-  description: string;
-}
+/**
+ * @nullable
+ */
+export type AppControllerGetHealth503Info = {[key: string]: {
+  status: string;
+  [key: string]: unknown;
+ }} | null;
