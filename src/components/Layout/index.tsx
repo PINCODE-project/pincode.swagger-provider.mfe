@@ -3,8 +3,6 @@ import { AppSidebar } from "@components/Sidebar";
 import { Outlet } from "react-router-dom";
 import { CSSProperties, FC } from "react";
 
-import { WorkSpaceSidebar } from "@/domain/workspace/components/WorkSpaceSidebar/WorkSpaceSidebar";
-
 type LayoutProps = {
     SecondSidebar?: FC;
 };
@@ -16,7 +14,6 @@ const Layout: FC<LayoutProps> = ({ SecondSidebar }) => {
             <main className="w-full">
                 <Outlet />
             </main>
-            <WorkSpaceSidebar/>
         </SidebarProvider>
     );
 };
