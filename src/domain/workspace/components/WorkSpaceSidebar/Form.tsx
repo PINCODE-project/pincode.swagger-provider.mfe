@@ -11,9 +11,10 @@ import {
     Input, 
     Form as InternalForm 
 } from "@pin-code/uikit.lib"
+import { useState } from "react"
 
-import { CreateWorkspaceDto } from "@/model"
-import { EmojiSelect } from "@/components/EmojiSelect"
+import { CreateWorkspaceDto } from "@model";
+import { EmojiSelect } from "@components/EmojiSelect"
 
 type Props = {
     defaultValues?: CreateWorkspaceDto;
@@ -35,6 +36,8 @@ export const Form = ({
         resolver: zodResolver(formSchema),
         defaultValues,
       })
+
+    const [open, setOpen] = useState(false);
 
     return (
         <InternalForm {...form}>
@@ -59,7 +62,17 @@ export const Form = ({
                         <FormItem>
                             <FormLabel>Emoji</FormLabel>
                             <FormControl>
-                                <EmojiSelect value={field.value} handleChange={(value) =>field.onChange(value)}/>
+                                <EmojiSelect 
+                                    value={field.value} 
+                                    handleChange={(value) => {
+                                        console.log(value)
+                                        console.log(value)
+                                        field.onChange(value)
+                                        setOpen(false)
+                                    }}
+                                    open={open}
+                                    setOpen={setOpen}
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

@@ -5,11 +5,11 @@ import Picker from '@emoji-mart/react'
 const EmojiSelect = React.forwardRef<
     HTMLInputElement, 
     React.ComponentProps<"input"> & {
-    handleChange: (value: string) => void
+    handleChange: (value: string) => void;
+    open: boolean;
+    setOpen: (open: boolean) => void;
 }>(
-    ({ className, type, handleChange,  ...props }, ref) => {
-        const [open, setOpen] = React.useState(false);
-
+    ({ className, type, handleChange, open, setOpen,  ...props }, ref) => {
         return (
             <>
                 <input
