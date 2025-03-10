@@ -1,7 +1,10 @@
 import { useNestAuthProvider } from "@pin-code/uikit.lib";
 import { useNavigate } from "react-router-dom";
 import { GalleryVerticalEnd } from "lucide-react";
+
 import { oauthLoginFx } from "@store/auth/oauth";
+import { loginFx } from "@store/auth/login";
+import { setIsAuth, tokenReceived } from "@store/auth/token";
 
 import { AuthRouter } from "../../routes";
 import { FullLoginPage } from "../../components/LoginPage";
@@ -20,6 +23,13 @@ const LoginPage = () => {
         // @ts-ignore
         <FullLoginPage
             {...props}
+            onSubmit={(args) => {
+                props.onSubmit(args);
+                loginFx(args).then((response) => {
+                    tokenReceived(response.data.data.accessToken);
+                    setIsAuth(null);
+                })
+            }}
             logo={
                 <>
                     <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">

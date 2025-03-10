@@ -26,8 +26,6 @@ import type {
   UpdateUserDto
 } from '../../model'
 
-
-
   /**
  * @summary Регистрация пользователя
  */
