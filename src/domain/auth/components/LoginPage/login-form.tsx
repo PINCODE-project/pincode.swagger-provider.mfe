@@ -1,7 +1,7 @@
 import { Button, Input, Label } from "@pin-code/uikit.lib";
 import { ComponentProps, ReactNode, useState } from "react";
 
-type LoginFormProps = {
+type LoginFormProps = Omit<ComponentProps<"div">, "onSubmit"> & {
     title: string;
     description: string;
     type: "login" | "email";
@@ -9,7 +9,7 @@ type LoginFormProps = {
     onForgotPassword?: () => void;
     onSubmit: ({ email, password, login }: { email: string; password: string; login: string }) => void;
     oauthButtons?: { title: string; icon: ReactNode; onClick: () => void }[];
-} & ComponentProps<"div">;
+};
 
 const LoginForm = ({
     title,

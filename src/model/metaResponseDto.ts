@@ -6,8 +6,9 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface CreateWorkspaceDto {
-  name: string;
-  emoji: string;
-  description: string;
+export interface MetaResponseDto {
+  /** Время запроса */
+  timestamp: string;
+  /** Код ответа */
+  statusCode: number;
 }

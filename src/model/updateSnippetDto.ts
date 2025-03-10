@@ -6,8 +6,9 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface CreateWorkspaceDto {
-  name: string;
-  emoji: string;
-  description: string;
+export interface UpdateSnippetDto {
+  /** Название сниппета */
+  name?: string;
+  /** JSON сниппета */
+  snippet?: string;
 }
