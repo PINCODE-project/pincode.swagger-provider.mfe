@@ -27,7 +27,7 @@ const formSchema = z.object({
     description: z.string().min(2, "Минимальная длина - 2").max(50, "Максимальная длина - 50"),
 });
 
-export const Form = ({ defaultValues, submitButtonText }: Props) => {
+export const Form = ({ defaultValues, submitButtonText, onSubmit }: Props) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues,
@@ -37,7 +37,7 @@ export const Form = ({ defaultValues, submitButtonText }: Props) => {
 
     return (
         <InternalForm {...form}>
-            <form onSubmit={form.handleSubmit(console.log)} className="grid gap-4 py-4">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4 py-4">
                 <FormField
                     control={form.control}
                     name="name"
