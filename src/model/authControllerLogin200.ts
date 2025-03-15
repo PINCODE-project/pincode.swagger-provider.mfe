@@ -5,9 +5,7 @@
  * Сервис для объединения Swagger схем в одном месте
  * OpenAPI spec version: 1.0
  */
+import type { BaseResponse } from './baseResponse';
+import type { AuthControllerLogin200AllOf } from './authControllerLogin200AllOf';
 
-export interface CreateWorkspaceDto {
-  name: string;
-  emoji: string;
-  description: string;
-}
+export type AuthControllerLogin200 = BaseResponse & AuthControllerLogin200AllOf;
