@@ -1,4 +1,4 @@
-import { ComponentProps, FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { ThemeToggle } from "@pin-code/uikit.lib";
 import { Link } from "react-router-dom";
 
@@ -7,7 +7,7 @@ import { LoginForm, LoginFormProps } from "./login-form";
 type FullLoginPageProps = LoginFormProps & {
     logo: ReactNode;
     image: string;
-} & ComponentProps<"div">;
+};
 
 const FullLoginPage: FC<FullLoginPageProps> = (props) => {
     // const { Link } = useRouter();
