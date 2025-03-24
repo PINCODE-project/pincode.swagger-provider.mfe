@@ -1,4 +1,4 @@
-import { projectControllerFindAllBuWorkspace } from "@store/api/swagger-provider-api";
+import { projectControllerCreate, projectControllerFindAllBuWorkspace } from "@store/api/swagger-provider-api";
 import { AxiosResponse } from "axios";
 
 import { apiDomain } from "../api";
@@ -11,3 +11,5 @@ export const resetProjects = apiDomain.event();
 export const getProjectsFx = apiDomain.effect(projectControllerFindAllBuWorkspace<AxiosResponse>);
 
 $projects.on(getProjectsFx.doneData, (_, response) => response.data).reset(resetProjects);
+
+export const createProjectFx = apiDomain.effect(projectControllerCreate<AxiosResponse>);

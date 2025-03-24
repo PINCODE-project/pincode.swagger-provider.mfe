@@ -12,13 +12,14 @@ import {
     Form as InternalForm,
 } from "@pin-code/uikit.lib";
 import { useState } from "react";
-import { CreateWorkspaceDto } from "@model/index";
+import { CreateProjectDto } from "@model/index";
 import { EmojiSelect } from "@components/EmojiSelect";
 
 type Props = {
-    defaultValues?: CreateWorkspaceDto;
-    onSubmit: (data: CreateWorkspaceDto) => void;
+    defaultValues?: CreateProjectDto;
+    onSubmit: (data: CreateProjectDto) => void;
     submitButtonText: string;
+    workspaceId: string;
 };
 
 const formSchema = z.object({
@@ -27,7 +28,7 @@ const formSchema = z.object({
     description: z.string().min(2, "Минимальная длина - 2").max(50, "Максимальная длина - 50"),
 });
 
-export const Form = ({ defaultValues, submitButtonText, onSubmit }: Props) => {
+export const Form = ({ defaultValues, submitButtonText, onSubmit, workspaceId }: Props) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues,
@@ -37,7 +38,10 @@ export const Form = ({ defaultValues, submitButtonText, onSubmit }: Props) => {
 
     return (
         <InternalForm {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4 py-4">
+            <form
+                onSubmit={form.handleSubmit((data) => onSubmit({ ...data, workspaceId }))}
+                className="grid gap-4 py-4"
+            >
                 <FormField
                     control={form.control}
                     name="name"
