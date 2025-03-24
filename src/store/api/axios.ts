@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-    baseURL: "https://pincode-dev.ru/swagger/",
+    baseURL: "https://backend-swagger.pincode-infra.ru/",
     withCredentials: true,
     headers: {
         "Content-Type": "application/json",
