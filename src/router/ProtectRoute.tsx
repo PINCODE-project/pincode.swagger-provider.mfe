@@ -2,7 +2,7 @@ import { FC, PropsWithChildren, useEffect } from "react";
 import { Navigate, useSearchParams } from "react-router-dom";
 import { useUnit } from "effector-react";
 import { Loader } from "lucide-react";
-import { $isAuth, checkTokenFx, setIsAuth } from "@store/auth/token";
+import { $isAuth, $token, checkTokenFx, setIsAuth } from "@store/auth/token";
 import { AuthRouter } from "@domain/auth";
 
 import { HomeRouter } from "./routes";
@@ -14,20 +14,21 @@ type Props = PropsWithChildren & {
 
 export const ProtectRoute: FC<Props> = ({ withAuthGuard, withNoAuthGuard, children }) => {
     const isAuth = useUnit($isAuth);
+    const token = useUnit($token);
     const [searchParams] = useSearchParams();
 
     useEffect(() => {
         const verifyToken = async () => {
             try {
                 const response = await checkTokenFx();
-                setIsAuth(!!response.data.data);
+                setIsAuth(!!response.data);
             } catch {
                 setIsAuth(false);
             }
         };
 
         if (isAuth === null) verifyToken();
-    }, [isAuth]);
+    }, [isAuth, token]);
 
     // Если есть токен, но ещё не проверили его
     if (isAuth === null) {
