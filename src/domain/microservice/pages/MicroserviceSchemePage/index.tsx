@@ -2,6 +2,7 @@ import SwaggerUI from "swagger-ui-react";
 import "swagger-ui-react/swagger-ui.css";
 import "./swagger.scss";
 import OperationSummaryPlugin from "@components/SwaggerUI/plugins/OperationSummary";
+import RequestBodyEditorPlugin from "@components/SwaggerUI/plugins/RequestBodyEditor";
 
 const MicroserviceSchemePage = () => {
     const content =
@@ -64,22 +65,7 @@ const MicroserviceSchemePage = () => {
                 //     },
                 // }),
                 OperationSummaryPlugin,
-                // () => ({
-                //     components: {
-                //         JsonSchema_string: (props: any) => {
-                //             console.log("daw,", props);
-                //             return (
-                //                 <input
-                //                     style={{ border: "5px solid red" }}
-                //                     onInput={(e) => {
-                //                         // @ts-ignore
-                //                         props.onChange(e.target.value, props.keyName);
-                //                     }}
-                //                 />
-                //             );
-                //         },
-                //     },
-                // }),
+                RequestBodyEditorPlugin,
             ]}
         />
     );
