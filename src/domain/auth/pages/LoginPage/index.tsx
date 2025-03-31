@@ -46,7 +46,7 @@ const LoginPage = () => {
                 {
                     title: "Яндекс",
                     onClick: () =>
-                        oauthLoginFx("yandex").then((response) => window.location.replace(response.data.url)),
+                        oauthLoginFx("yandex").then((response) => window.location.replace(response.data.data.url)),
                     icon: (
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -63,7 +63,7 @@ const LoginPage = () => {
                 {
                     title: "GitHub",
                     onClick: () =>
-                        oauthLoginFx("github").then((response) => window.location.replace(response.data.url)),
+                        oauthLoginFx("github").then((response) => window.location.replace(response.data.data.url)),
                     icon: (
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path
