@@ -20,7 +20,7 @@ export const ProtectRoute: FC<Props> = ({ withAuthGuard, withNoAuthGuard, childr
         const verifyToken = async () => {
             try {
                 const response = await checkTokenFx();
-                setIsAuth(!!response.data);
+                setIsAuth(!!response.data.data);
             } catch {
                 setIsAuth(false);
             }

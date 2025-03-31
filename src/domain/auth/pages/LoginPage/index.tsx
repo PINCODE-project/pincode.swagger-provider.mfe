@@ -1,7 +1,6 @@
 import { useNestAuthProvider } from "@pin-code/uikit.lib";
 import { useNavigate } from "react-router-dom";
 import { GalleryVerticalEnd } from "lucide-react";
-
 import { oauthLoginFx } from "@store/auth/oauth";
 import { loginFx } from "@store/auth/login";
 import { setIsAuth, tokenReceived } from "@store/auth/token";
@@ -28,7 +27,7 @@ const LoginPage = () => {
                 loginFx(args).then((response) => {
                     tokenReceived(response.data.data.accessToken);
                     setIsAuth(null);
-                })
+                });
             }}
             logo={
                 <>

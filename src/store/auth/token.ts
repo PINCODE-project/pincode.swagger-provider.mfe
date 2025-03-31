@@ -28,7 +28,7 @@ export const checkTokenFx = apiDomain.effect(userControllerFindProfile<AxiosResp
 
 sample({
     clock: checkTokenFx.doneData,
-    fn: (response) => response.data,
+    fn: (response) => response.data.data,
     target: setProfile,
 });
 
