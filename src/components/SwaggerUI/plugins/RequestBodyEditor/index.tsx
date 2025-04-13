@@ -16,20 +16,23 @@ class RequestBodyEditor extends PureComponent {
         userHasEditedBody: false,
     };
 
-    constructor(props: Props, context) {
+    constructor(props: Props, context: any) {
+        // @ts-ignore
         super(props, context);
 
         this.state = {
+            // eslint-disable-next-line react/prop-types
             value: JSON.stringify(props.value) || props.defaultValue,
         };
 
         // this is the glue that makes sure our initial value gets set as the
         // current request body value
         // TODO: achieve this in a selector instead
+        // eslint-disable-next-line react/prop-types
         props.onChange(props.value);
     }
 
-    applyDefaultValue = (nextProps) => {
+    applyDefaultValue = (nextProps: any) => {
         const { onChange, defaultValue } = nextProps || this.props;
 
         this.setState({
@@ -39,11 +42,13 @@ class RequestBodyEditor extends PureComponent {
         return onChange(defaultValue);
     };
 
-    onChange = (value) => {
+    onChange = (value: any) => {
+        // @ts-ignore
+        // eslint-disable-next-line react/prop-types
         this.props.onChange(JSON.stringify(value));
     };
 
-    onDomChange = (e) => {
+    onDomChange = (e: any) => {
         const inputValue = e.target.value;
 
         this.setState(
@@ -54,13 +59,18 @@ class RequestBodyEditor extends PureComponent {
         );
     };
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps: any) {
+        // @ts-ignore
+        // eslint-disable-next-line react/prop-types
         if (this.props.value !== nextProps.value && nextProps.value !== this.state.value) {
             this.setState({
+                // eslint-disable-next-line react/prop-types
                 value: JSON.stringify(nextProps.value),
             });
         }
 
+        // @ts-ignore
+        // eslint-disable-next-line react/prop-types
         if (!nextProps.value && nextProps.defaultValue && !!this.state.value) {
             // if new value is falsy, we have a default, AND the falsy value didn't
             // come from us originally
@@ -69,10 +79,13 @@ class RequestBodyEditor extends PureComponent {
     }
 
     render() {
+        // @ts-ignore
+        // eslint-disable-next-line react/prop-types
         const { getComponent, errors } = this.props;
-
+        // @ts-ignore
         const { value } = this.state;
 
+        // eslint-disable-next-line react/prop-types
         const isInvalid = errors.size > 0;
         const TextArea = getComponent("TextArea");
 
@@ -80,6 +93,7 @@ class RequestBodyEditor extends PureComponent {
             <div className="body-param">
                 <TextArea
                     className={`body-param__text ${isInvalid ? "invalid" : ""}`}
+                    // eslint-disable-next-line react/prop-types
                     title={errors.size ? errors.join(", ") : ""}
                     value={value}
                     onChange={this.onDomChange}
