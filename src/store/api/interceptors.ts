@@ -1,9 +1,9 @@
-import { axiosInstance } from "./axios";
+import { AXIOS_INSTANCE } from "./axios";
 
 /**
  * Интерсептор на обработку авторизационной ошибки
  */
-axiosInstance.interceptors.response.use(
+AXIOS_INSTANCE.interceptors.response.use(
     (res) => {
         return res;
     },

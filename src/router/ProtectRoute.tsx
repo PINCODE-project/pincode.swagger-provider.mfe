@@ -1,18 +1,16 @@
 import { FC, PropsWithChildren, useEffect } from "react";
-import { Navigate, useSearchParams } from "react-router-dom";
+import { Navigate, Outlet, useSearchParams } from "react-router-dom";
 import { useUnit } from "effector-react";
 import { Loader } from "lucide-react";
-import { $isAuth, $token, checkTokenFx, setIsAuth } from "@store/auth/token";
-import { AuthRouter } from "@domain/auth";
-
-import { HomeRouter } from "./routes";
+import { $isAuth, $token, checkTokenFx, setIsAuth, tokenExpired } from "@store/auth/token";
+import { AuthRouter, HomeRouter } from "@router/constants.ts";
 
 type Props = PropsWithChildren & {
-    withAuthGuard: boolean | undefined;
-    withNoAuthGuard: boolean | undefined;
+    withAuthGuard?: boolean | undefined;
+    withNoAuthGuard?: boolean | undefined;
 };
 
-export const ProtectRoute: FC<Props> = ({ withAuthGuard, withNoAuthGuard, children }) => {
+export const ProtectRoute: FC<Props> = ({ withAuthGuard = false, withNoAuthGuard = false, children }) => {
     const isAuth = useUnit($isAuth);
     const token = useUnit($token);
     const [searchParams] = useSearchParams();
@@ -21,9 +19,10 @@ export const ProtectRoute: FC<Props> = ({ withAuthGuard, withNoAuthGuard, childr
         const verifyToken = async () => {
             try {
                 const response = await checkTokenFx();
-                setIsAuth(!!response.data);
+                setIsAuth(!!response);
             } catch {
                 setIsAuth(false);
+                tokenExpired();
             }
         };
 
@@ -47,5 +46,5 @@ export const ProtectRoute: FC<Props> = ({ withAuthGuard, withNoAuthGuard, childr
         return <Navigate to={returnUrl} />;
     }
 
-    return children;
+    return <Outlet />;
 };

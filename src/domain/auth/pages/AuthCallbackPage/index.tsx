@@ -1,8 +1,8 @@
 import { Navigate, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { $token, setIsAuth, tokenReceived } from "@store/auth/token";
-import { HomeRouter } from "@router/routes";
 import { useUnit } from "effector-react";
+import { HomeRouter } from "@router/constants.ts";
 
 export const AuthCallbackPage = () => {
     const token = useUnit($token);

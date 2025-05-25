@@ -1,34 +1,21 @@
-import { useNestAuthProvider } from "@pin-code/uikit.lib";
-import { useNavigate } from "react-router-dom";
+import { useToast } from "@pin-code/uikit.lib";
 import { GalleryVerticalEnd } from "lucide-react";
 import { oauthLoginFx } from "@store/auth/oauth";
 import { loginFx } from "@store/auth/login";
 import { setIsAuth, tokenReceived } from "@store/auth/token";
 
-import { AuthRouter } from "../../routes";
 import { FullLoginPage } from "../../components/LoginPage";
 
 const LoginPage = () => {
-    const navigate = useNavigate();
-
-    const { props } = useNestAuthProvider({
-        url: "123",
-        navigate,
-        forgotPasswordPage: AuthRouter.ForgotPasswordPage,
-        registrationPage: AuthRouter.RegistrationPage,
-    });
+    const { toast } = useToast();
 
     return (
-        // @ts-ignore
         <FullLoginPage
-            {...props}
-            onSubmit={(args) => {
-                props.onSubmit(args);
-                loginFx(args).then((response) => {
-                    tokenReceived(response.data.data.accessToken);
-                    setIsAuth(null);
-                });
-            }}
+            type="email"
+            title="👋 Добро пожаловать"
+            image="https://images.unsplash.com/photo-1653299832314-5d3dc1e5a83c?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            description={`Swagger Provider - уютное место
+для ваших OpenAPI cхем`}
             logo={
                 <>
                     <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
@@ -37,15 +24,20 @@ const LoginPage = () => {
                     Swagger Provider
                 </>
             }
-            title="👋 Добро пожаловать"
-            image="https://images.unsplash.com/photo-1653299832314-5d3dc1e5a83c?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            description={`Swagger Provider - уютное место
-для ваших OpenAPI cхем`}
+            onSubmit={(args) => {
+                loginFx(args)
+                    .then((response) => {
+                        tokenReceived(response.accessToken);
+                        setIsAuth(null);
+                    })
+                    .catch(() =>
+                        toast({ id: "incorrectPassword", title: "Неверный логин или пароль!", variant: "destructive" }),
+                    );
+            }}
             oauthButtons={[
                 {
                     title: "Яндекс",
-                    onClick: () =>
-                        oauthLoginFx("yandex").then((response) => window.location.replace(response.data.data.url)),
+                    onClick: () => oauthLoginFx("yandex").then((response) => window.location.replace(response.url)),
                     icon: (
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -61,8 +53,7 @@ const LoginPage = () => {
                 },
                 {
                     title: "GitHub",
-                    onClick: () =>
-                        oauthLoginFx("github").then((response) => window.location.replace(response.data.data.url)),
+                    onClick: () => oauthLoginFx("github").then((response) => window.location.replace(response.url)),
                     icon: (
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path

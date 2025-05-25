@@ -1,1 +1,1740 @@
-{"openapi":"3.0.0","paths":{"/api/auth/register":{"post":{"operationId":"AuthController_register","summary":"Регистрация пользователя","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/RegisterDto"}}}},"responses":{"200":{"description":""}},"tags":["auth"]}},"/api/auth/login":{"post":{"operationId":"AuthController_login","summary":"Авторизация пользователя","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/LoginDto"}}}},"responses":{"200":{"description":"Пользователь успешно авторизовался","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/BaseResponse"},{"properties":{"data":{"$ref":"#/components/schemas/LoginResponseDto"}}}]}}}},"400":{"description":"Неверные данные","content":{"application/json":{"examples":{"Пользователь не найден":{"value":{"meta":{"timestamp":"2025-03-03T15:50:57.083Z","statusCode":400},"data":{"message":"Пользователь не найден."}}}}}}},"401":{"description":"Пользователь существует, но введён неверный пароль","content":{"application/json":{"examples":{"Неверный пароль":{"value":{"meta":{"timestamp":"2025-03-03T15:50:57.083Z","statusCode":401},"data":{"message":"Неверный пароль."}}}}}}}},"tags":["auth"]}},"/api/auth/oauth/callback/{provider}":{"get":{"operationId":"AuthController_callback","summary":"Авторизация через Oauth","description":"Используется провайдерами\n\nПеренаправляет на фронт по адресу вместе с токеном /auth/callback?accessToken=ТОКЕН","parameters":[{"name":"code","required":true,"in":"query","description":"Код авторизации","schema":{"type":"string"}},{"name":"provider","required":true,"in":"path","description":"Провайдер авторизации","schema":{"example":"yandex","enum":["yandex","github"],"type":"string"}}],"responses":{"200":{"description":""}},"tags":["auth"]}},"/api/auth/oauth/connect/{provider}":{"get":{"operationId":"AuthController_connect","summary":"Получение ссылки на Oauth авторизацию","parameters":[{"name":"provider","required":true,"in":"path","description":"Провайдер авторизации","schema":{"example":"yandex","enum":["yandex","github"],"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ConnectToProviderResponseDto"}}}}},"tags":["auth"]}},"/api/user/profile":{"get":{"operationId":"UserController_findProfile","summary":"Получение профиля пользователя","parameters":[],"responses":{"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["user"],"security":[{"accessToken":[]}]},"patch":{"operationId":"UserController_updateProfile","summary":"Обновление профиля пользователя","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateUserDto"}}}},"responses":{"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["user"],"security":[{"accessToken":[]}]}},"/api/user/by-id/{id}":{"get":{"operationId":"UserController_findById","summary":"Получение пользователя по ID","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["user"],"security":[{"accessToken":[]}]}},"/api/workspace":{"post":{"operationId":"WorkspaceController_create","summary":"Создание рабочего пространства","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateWorkspaceDto"}}}},"responses":{"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["workspace"],"security":[{"accessToken":[]}]},"get":{"operationId":"WorkspaceController_findAll","summary":"Получение пространств пользователя","parameters":[],"responses":{"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["workspace"],"security":[{"accessToken":[]}]}},"/api/workspace/add-member":{"post":{"operationId":"WorkspaceController_addMemberToWorkspace","summary":"Добавить пользователя в пространство","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/AddMemberToWorkspaceDto"}}}},"responses":{"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["workspace"],"security":[{"accessToken":[]}]}},"/api/workspace/{id}":{"get":{"operationId":"WorkspaceController_findOne","summary":"Получение пространства","parameters":[{"name":"id","required":true,"in":"path","schema":{"format":"uuid","type":"string"}}],"responses":{"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["workspace"],"security":[{"accessToken":[]}]}},"/api/project":{"post":{"operationId":"ProjectController_create","summary":"Создание проекта","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateProjectDto"}}}},"responses":{"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["project"],"security":[{"accessToken":[]}]}},"/api/project/by-workspace/{workspaceId}":{"get":{"operationId":"ProjectController_findAllBuWorkspace","summary":"Получение всех проектов в пространстве","parameters":[{"name":"workspaceId","required":true,"in":"path","schema":{"format":"uuid","type":"string"}}],"responses":{"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["project"],"security":[{"accessToken":[]}]}},"/api/microservice":{"post":{"operationId":"MicroserviceController_create","summary":"Создание микросервиса (схемы)","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateMicroserviceDto"}}}},"responses":{"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["microservice"],"security":[{"accessToken":[]}]}},"/api/microservice/{id}":{"get":{"operationId":"MicroserviceController_findOne","summary":"Получение схемы","parameters":[{"name":"id","required":true,"in":"path","schema":{"format":"uuid","type":"string"}}],"responses":{"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["microservice"],"security":[{"accessToken":[]}]}},"/api/snippet":{"post":{"operationId":"SnippetController_create","summary":"Создание сниппета","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateSnippetDto"}}}},"responses":{"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["snippet"],"security":[{"accessToken":[]}]},"get":{"operationId":"SnippetController_findAll","summary":"Получение всех сниппетов пользователя","parameters":[],"responses":{"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["snippet"],"security":[{"accessToken":[]}]}},"/api/snippet/{id}":{"patch":{"operationId":"SnippetController_update","summary":"Обновление сниппета","parameters":[{"name":"id","required":true,"in":"path","description":"ID сниппета","schema":{"example":"8a518a8e-d9d1-4069-a4d4-d05ab376fc6d","type":"string"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateSnippetDto"}}}},"responses":{"400":{"description":"Неверные данные","content":{"application/json":{"examples":{"Сниппет не найден":{"value":{"meta":{"timestamp":"2025-03-03T15:50:57.083Z","statusCode":400},"data":{"message":"Сниппет не найден."}}}}}}},"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["snippet"],"security":[{"accessToken":[]}]},"delete":{"operationId":"SnippetController_remove","summary":"Удаление сниппета","parameters":[{"name":"id","required":true,"in":"path","description":"ID сниппета","schema":{"example":"8a518a8e-d9d1-4069-a4d4-d05ab376fc6d","type":"string"}}],"responses":{"200":{"description":"Сниппет успешно удалён"},"400":{"description":"Неверные данные","content":{"application/json":{"examples":{"Сниппет не найден":{"value":{"meta":{"timestamp":"2025-03-03T15:50:57.083Z","statusCode":400},"data":{"message":"Сниппет не найден."}}}}}}},"401":{"description":"Не авторизован","content":{"application/json":{"examples":{"Не авторизован":{"value":{"meta":{"statusCode":401,"timestamp":"2025-03-03T15:30:34.177Z"},"data":{"message":"Unauthorized"}}}}}}}},"tags":["snippet"],"security":[{"accessToken":[]}]}},"/api/health":{"get":{"operationId":"AppController_getHealth","summary":"Проверка работоспособности БД","parameters":[],"responses":{"200":{"description":"The Health Check is successful","content":{"application/json":{"schema":{"type":"object","properties":{"status":{"type":"string","example":"ok"},"info":{"type":"object","example":{"database":{"status":"up"}},"additionalProperties":{"type":"object","required":["status"],"properties":{"status":{"type":"string"}},"additionalProperties":true},"nullable":true},"error":{"type":"object","example":{},"additionalProperties":{"type":"object","required":["status"],"properties":{"status":{"type":"string"}},"additionalProperties":true},"nullable":true},"details":{"type":"object","example":{"database":{"status":"up"}},"additionalProperties":{"type":"object","required":["status"],"properties":{"status":{"type":"string"}},"additionalProperties":true}}}}}}},"503":{"description":"The Health Check is not successful","content":{"application/json":{"schema":{"type":"object","properties":{"status":{"type":"string","example":"error"},"info":{"type":"object","example":{"database":{"status":"up"}},"additionalProperties":{"type":"object","required":["status"],"properties":{"status":{"type":"string"}},"additionalProperties":true},"nullable":true},"error":{"type":"object","example":{"redis":{"status":"down","message":"Could not connect"}},"additionalProperties":{"type":"object","required":["status"],"properties":{"status":{"type":"string"}},"additionalProperties":true},"nullable":true},"details":{"type":"object","example":{"database":{"status":"up"},"redis":{"status":"down","message":"Could not connect"}},"additionalProperties":{"type":"object","required":["status"],"properties":{"status":{"type":"string"}},"additionalProperties":true}}}}}}}},"tags":["system"]}}},"info":{"title":"Swagger Provider Documentation","description":"Сервис для объединения Swagger схем в одном месте","version":"1.0","contact":{}},"tags":[{"name":"auth","description":"Работа с авторизацией пользователей"},{"name":"user","description":"Работа с данными пользователей"},{"name":"workspace","description":"Работа с рабочими пространствами"},{"name":"project","description":"Работа с проектами в пространстве"},{"name":"microservice","description":"Работа с OpenApi схемами"},{"name":"system","description":"Системные операции"}],"servers":[],"components":{"securitySchemes":{"accessToken":{"scheme":"bearer","bearerFormat":"JWT","type":"http"},"refreshToken":{"scheme":"bearer","bearerFormat":"JWT","type":"http"}},"schemas":{"RegisterDto":{"type":"object","properties":{"name":{"type":"string","description":"Логин пользователя","example":"CatDev"},"email":{"type":"string","description":"Почта пользователя","example":"test@mail.ru"},"password":{"type":"string","description":"Пароль пользователя","example":"P@ssw0rd"}},"required":["name","email","password"]},"MetaResponseDto":{"type":"object","properties":{"timestamp":{"type":"string","description":"Время запроса","example":"2025-03-03T18:22:08.560Z"},"statusCode":{"type":"number","description":"Код ответа","example":200}},"required":["timestamp","statusCode"]},"BaseResponse":{"type":"object","properties":{"meta":{"$ref":"#/components/schemas/MetaResponseDto"}},"required":["meta"]},"LoginResponseDto":{"type":"object","properties":{"accessToken":{"type":"string","description":"Токен авторизации","example":"eyJhbGciOiJIUzI2NiIsInR5cCI2IkpXVCJ9.eyJpZCI6IjZmZTAwNzkwLTA5ZGUtNDZiNC1hYmVjLWRjOTUyNTQ5N2RlYiIsImVtYWlsIjoici6tYXhpbWthQG1haWwucnUiLCJwcm82aWRlciI6IiIsImlhdCI6MTc0MTAyNjE5MywiZXhwIjoxNzQzNjE4MTkzfQ.zvjUbE_H0GZr8yoD7uIlNNnbadgSfWfjEocEbLYUe6Q"}},"required":["accessToken"]},"LoginDto":{"type":"object","properties":{"email":{"type":"string","description":"Почта пользователя","example":"test@mail.ru"},"password":{"type":"string","description":"Пароль пользователя","example":"P@ssw0rd"}},"required":["email","password"]},"ConnectToProviderResponseDto":{"type":"object","properties":{"url":{"type":"string","description":"Ссылка для редиректа","example":"https://oauth.yandex.ru/authorize?response_type=code&client_id=6fa1e6565936416d91d4d151d5a1778a&redirect_uri=http%3A%2F%2Flocalhost%3A9001%2Fapi%2Fauth%2Foauth%2Fcallback%2Fyandex&scope=login%3Aemail+login%3Aavatar+login%3Ainfo&access_type=offline&prompt=select_account"}},"required":["url"]},"UpdateUserDto":{"type":"object","properties":{"name":{"type":"string"},"email":{"type":"string"},"isTwoFactorEnabled":{"type":"boolean"}},"required":["name","email","isTwoFactorEnabled"]},"CreateWorkspaceDto":{"type":"object","properties":{"name":{"type":"string"},"emoji":{"type":"string"},"description":{"type":"string"}},"required":["name","emoji","description"]},"AddMemberToWorkspaceDto":{"type":"object","properties":{"userId":{"type":"string","format":"uuid"},"workspaceId":{"type":"string","format":"uuid"},"role":{"type":"string","enum":["READER","REGULAR","ADMIN","SUPERADMIN"]}},"required":["userId","workspaceId","role"]},"CreateProjectDto":{"type":"object","properties":{"name":{"type":"string"},"emoji":{"type":"string"},"description":{"type":"string"},"workspaceId":{"type":"string","format":"uuid"}},"required":["name","emoji","description","workspaceId"]},"CreateMicroserviceDto":{"type":"object","properties":{"name":{"type":"string"},"type":{"type":"string","enum":["URL","TEXT"]},"content":{"type":"string"},"projectId":{"type":"string","format":"uuid"},"isUpdateByGetScheme":{"type":"boolean","description":"Должна ли обновляться схема при её получении"}},"required":["name","type","content","projectId","isUpdateByGetScheme"]},"CreateSnippetDto":{"type":"object","properties":{"name":{"type":"string","description":"Название сниппета","example":"Креды для SP"},"snippet":{"type":"string","description":"JSON сниппета","example":"{ \"login\": \"Test\", \"password\": \"P@ssw0rd\" }"}},"required":["name","snippet"]},"UpdateSnippetDto":{"type":"object","properties":{"name":{"type":"string","description":"Название сниппета","example":"Креды для SP"},"snippet":{"type":"string","description":"JSON сниппета","example":"{ \"login\": \"Test\", \"password\": \"P@ssw0rd\" }"}}}}}}
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "operationId": "AuthController_register",
+        "summary": "Регистрация пользователя",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "summary": "Авторизация пользователя",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Пользователь успешно авторизовался",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверные данные",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Пользователь не найден": {
+                    "value": {
+                      "meta": {
+                        "timestamp": "2025-03-03T15:50:57.083Z",
+                        "statusCode": 400
+                      },
+                      "data": {
+                        "message": "Пользователь не найден."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь существует, но введён неверный пароль",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Неверный пароль": {
+                    "value": {
+                      "meta": {
+                        "timestamp": "2025-03-03T15:50:57.083Z",
+                        "statusCode": 401
+                      },
+                      "data": {
+                        "message": "Неверный пароль."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/oauth/callback/{provider}": {
+      "get": {
+        "operationId": "AuthController_callback",
+        "summary": "Авторизация через Oauth",
+        "description": "Используется провайдерами\n\nПеренаправляет на фронт по адресу вместе с токеном /auth/callback?accessToken=ТОКЕН",
+        "parameters": [
+          {
+            "name": "code",
+            "required": true,
+            "in": "query",
+            "description": "Код авторизации",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "provider",
+            "required": true,
+            "in": "path",
+            "description": "Провайдер авторизации",
+            "schema": {
+              "example": "yandex",
+              "enum": [
+                "yandex",
+                "github"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/oauth/connect/{provider}": {
+      "get": {
+        "operationId": "AuthController_connect",
+        "summary": "Получение ссылки на Oauth авторизацию",
+        "parameters": [
+          {
+            "name": "provider",
+            "required": true,
+            "in": "path",
+            "description": "Провайдер авторизации",
+            "schema": {
+              "example": "yandex",
+              "enum": [
+                "yandex",
+                "github"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectToProviderResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/user/profile": {
+      "get": {
+        "operationId": "UserController_findProfile",
+        "summary": "Получение профиля пользователя",
+        "parameters": [],
+        "responses": {
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "user"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "UserController_updateProfile",
+        "summary": "Обновление профиля пользователя",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "user"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      }
+    },
+    "/api/user/by-id/{id}": {
+      "get": {
+        "operationId": "UserController_findById",
+        "summary": "Получение пользователя по ID",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "user"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      }
+    },
+    "/api/workspace": {
+      "post": {
+        "operationId": "WorkspaceController_create",
+        "summary": "Создание рабочего пространства",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWorkspaceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Созданное пространство",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateWorkspaceResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "workspace"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "WorkspaceController_findAll",
+        "summary": "Получение пространств пользователя",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Список пространств",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindAllWorkspaceResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "workspace"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      }
+    },
+    "/api/workspace/add-member": {
+      "post": {
+        "operationId": "WorkspaceController_addMemberToWorkspace",
+        "summary": "Добавить пользователя в пространство",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddMemberToWorkspaceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "workspace"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      }
+    },
+    "/api/workspace/{id}": {
+      "get": {
+        "operationId": "WorkspaceController_findOne",
+        "summary": "Получение пространства",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Пространство",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindWorkspaceResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "workspace"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      }
+    },
+    "/api/project": {
+      "post": {
+        "operationId": "ProjectController_create",
+        "summary": "Создание проекта",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProjectDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Созданный проект",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateProjectResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "project"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      }
+    },
+    "/api/project/by-workspace/{workspaceId}": {
+      "get": {
+        "operationId": "ProjectController_findAllBuWorkspace",
+        "summary": "Получение всех проектов в пространстве",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список проектов",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindAllProjectByWorkspaceResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "project"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      }
+    },
+    "/api/microservice": {
+      "post": {
+        "operationId": "MicroserviceController_create",
+        "summary": "Создание микросервиса (схемы)",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMicroserviceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "microservice"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      }
+    },
+    "/api/microservice/{id}": {
+      "get": {
+        "operationId": "MicroserviceController_findOne",
+        "summary": "Получение схемы",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Объект микросервиса",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetMicroserviceResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "microservice"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      }
+    },
+    "/api/snippet": {
+      "post": {
+        "operationId": "SnippetController_create",
+        "summary": "Создание сниппета",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSnippetDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "snippet"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "SnippetController_findAll",
+        "summary": "Получение всех сниппетов пользователя",
+        "parameters": [],
+        "responses": {
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "snippet"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      }
+    },
+    "/api/snippet/{id}": {
+      "patch": {
+        "operationId": "SnippetController_update",
+        "summary": "Обновление сниппета",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "ID сниппета",
+            "schema": {
+              "example": "8a518a8e-d9d1-4069-a4d4-d05ab376fc6d",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSnippetDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Неверные данные",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Сниппет не найден": {
+                    "value": {
+                      "meta": {
+                        "timestamp": "2025-03-03T15:50:57.083Z",
+                        "statusCode": 400
+                      },
+                      "data": {
+                        "message": "Сниппет не найден."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "snippet"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "SnippetController_remove",
+        "summary": "Удаление сниппета",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "ID сниппета",
+            "schema": {
+              "example": "8a518a8e-d9d1-4069-a4d4-d05ab376fc6d",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Сниппет успешно удалён"
+          },
+          "400": {
+            "description": "Неверные данные",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Сниппет не найден": {
+                    "value": {
+                      "meta": {
+                        "timestamp": "2025-03-03T15:50:57.083Z",
+                        "statusCode": 400
+                      },
+                      "data": {
+                        "message": "Сниппет не найден."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Не авторизован": {
+                    "value": {
+                      "meta": {
+                        "statusCode": 401,
+                        "timestamp": "2025-03-03T15:30:34.177Z"
+                      },
+                      "data": {
+                        "message": "Unauthorized"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "snippet"
+        ],
+        "security": [
+          {
+            "accessToken": []
+          }
+        ]
+      }
+    },
+    "/api/health": {
+      "get": {
+        "operationId": "AppController_getHealth",
+        "summary": "Проверка работоспособности БД",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The Health Check is successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    },
+                    "info": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "object",
+                      "example": {},
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "details": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The Health Check is not successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "info": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "object",
+                      "example": {
+                        "redis": {
+                          "status": "down",
+                          "message": "Could not connect"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "details": {
+                      "type": "object",
+                      "example": {
+                        "database": {
+                          "status": "up"
+                        },
+                        "redis": {
+                          "status": "down",
+                          "message": "Could not connect"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": [
+                          "status"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "system"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Swagger Provider Documentation",
+    "description": "Сервис для объединения Swagger схем в одном месте",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Работа с авторизацией пользователей"
+    },
+    {
+      "name": "user",
+      "description": "Работа с данными пользователей"
+    },
+    {
+      "name": "workspace",
+      "description": "Работа с рабочими пространствами"
+    },
+    {
+      "name": "project",
+      "description": "Работа с проектами в пространстве"
+    },
+    {
+      "name": "microservice",
+      "description": "Работа с OpenApi схемами"
+    },
+    {
+      "name": "system",
+      "description": "Системные операции"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://backend-swagger.pincode-infra.ru/"
+    },
+    {
+      "url": "http://localhost:9001"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "accessToken": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      },
+      "refreshToken": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "RegisterDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Логин пользователя",
+            "example": "CatDev"
+          },
+          "email": {
+            "type": "string",
+            "description": "Почта пользователя",
+            "example": "test@mail.ru"
+          },
+          "password": {
+            "type": "string",
+            "description": "Пароль пользователя",
+            "example": "P@ssw0rd"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password"
+        ]
+      },
+      "LoginResponseDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Токен авторизации",
+            "example": "eyJhbGciOiJIUzI2NiIsInR5cCI2IkpXVCJ9.eyJpZCI6IjZmZTAwNzkwLTA5ZGUtNDZiNC1hYmVjLWRjOTUyNTQ5N2RlYiIsImVtYWlsIjoici6tYXhpbWthQG1haWwucnUiLCJwcm82aWRlciI6IiIsImlhdCI6MTc0MTAyNjE5MywiZXhwIjoxNzQzNjE4MTkzfQ.zvjUbE_H0GZr8yoD7uIlNNnbadgSfWfjEocEbLYUe6Q"
+          }
+        },
+        "required": [
+          "accessToken"
+        ]
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Почта пользователя",
+            "example": "test@mail.ru"
+          },
+          "password": {
+            "type": "string",
+            "description": "Пароль пользователя",
+            "example": "P@ssw0rd"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "ConnectToProviderResponseDto": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Ссылка для редиректа",
+            "example": "https://oauth.yandex.ru/authorize?response_type=code&client_id=6fa1e6565936416d91d4d151d5a1778a&redirect_uri=http%3A%2F%2Flocalhost%3A9001%2Fapi%2Fauth%2Foauth%2Fcallback%2Fyandex&scope=login%3Aemail+login%3Aavatar+login%3Ainfo&access_type=offline&prompt=select_account"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "isTwoFactorEnabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "isTwoFactorEnabled"
+        ]
+      },
+      "CreateWorkspaceResponseWorkspaceDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "emoji": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "emoji",
+          "description",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CreateWorkspaceResponseDto": {
+        "type": "object",
+        "properties": {
+          "workspace": {
+            "$ref": "#/components/schemas/CreateWorkspaceResponseWorkspaceDto"
+          }
+        },
+        "required": [
+          "workspace"
+        ]
+      },
+      "CreateWorkspaceDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "emoji": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "emoji",
+          "description"
+        ]
+      },
+      "AddMemberToWorkspaceDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "READER",
+              "REGULAR",
+              "ADMIN",
+              "SUPERADMIN"
+            ]
+          }
+        },
+        "required": [
+          "userId",
+          "workspaceId",
+          "role"
+        ]
+      },
+      "FindWorkspaceResponseMemberDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "REGULAR",
+              "ADMIN"
+            ]
+          }
+        },
+        "required": [
+          "userId",
+          "role"
+        ]
+      },
+      "FindWorkspaceResponsePartDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "emoji": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FindWorkspaceResponseMemberDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "emoji",
+          "description",
+          "createdAt",
+          "updatedAt",
+          "members"
+        ]
+      },
+      "FindAllWorkspaceResponseDto": {
+        "type": "object",
+        "properties": {
+          "workspaces": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FindWorkspaceResponsePartDto"
+            }
+          }
+        },
+        "required": [
+          "workspaces"
+        ]
+      },
+      "FindWorkspaceResponseDto": {
+        "type": "object",
+        "properties": {
+          "workspace": {
+            "$ref": "#/components/schemas/FindWorkspaceResponsePartDto"
+          }
+        },
+        "required": [
+          "workspace"
+        ]
+      },
+      "CreateProjectResponseProjectDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "emoji": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "emoji",
+          "description",
+          "createdAt",
+          "updatedAt",
+          "workspaceId"
+        ]
+      },
+      "CreateProjectResponseDto": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/CreateProjectResponseProjectDto"
+          }
+        },
+        "required": [
+          "project"
+        ]
+      },
+      "CreateProjectDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "emoji": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "name",
+          "emoji",
+          "description",
+          "workspaceId"
+        ]
+      },
+      "FindAllProjectByWorkspaceResponseMicroserviceDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "URL",
+              "TEXT"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type"
+        ]
+      },
+      "FindAllProjectByWorkspaceResponseProjectDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "emoji": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "microservices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FindAllProjectByWorkspaceResponseMicroserviceDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "emoji",
+          "description",
+          "createdAt",
+          "updatedAt",
+          "workspaceId",
+          "microservices"
+        ]
+      },
+      "FindAllProjectByWorkspaceResponseDto": {
+        "type": "object",
+        "properties": {
+          "projects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FindAllProjectByWorkspaceResponseProjectDto"
+            }
+          }
+        },
+        "required": [
+          "projects"
+        ]
+      },
+      "CreateMicroserviceDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "URL",
+              "TEXT"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "projectId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "isUpdateByGetScheme": {
+            "type": "boolean",
+            "description": "Должна ли обновляться схема при её получении"
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "content",
+          "projectId",
+          "isUpdateByGetScheme"
+        ]
+      },
+      "GetMicroserviceResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "b1982528-ea25-4598-ae19-b14976c6fbc3"
+          },
+          "name": {
+            "type": "string",
+            "example": "Обучение (Темы, разделы, уровни)"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "URL",
+              "TEXT"
+            ],
+            "example": "URL"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://backend-swagger.pincode-infra.ru/core/docs-json"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-04-13T18:08:45.639Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-04-13T18:08:45.639Z"
+          },
+          "projectId": {
+            "type": "string",
+            "example": "0a999230-b5ba-4c63-a501-224bc20d1712"
+          },
+          "version": {
+            "type": "number",
+            "example": 0
+          },
+          "status": {
+            "type": "string",
+            "example": "OFFLINE"
+          },
+          "content": {
+            "type": "string",
+            "example": "0a999230-b5ba-4c63-a501-224bc20d1712"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "url",
+          "createdAt",
+          "updatedAt",
+          "projectId",
+          "version",
+          "status",
+          "content"
+        ]
+      },
+      "CreateSnippetDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Название сниппета",
+            "example": "Креды для SP"
+          },
+          "snippet": {
+            "type": "string",
+            "description": "JSON сниппета",
+            "example": "{ \"login\": \"Test\", \"password\": \"P@ssw0rd\" }"
+          }
+        },
+        "required": [
+          "name",
+          "snippet"
+        ]
+      },
+      "UpdateSnippetDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Название сниппета",
+            "example": "Креды для SP"
+          },
+          "snippet": {
+            "type": "string",
+            "description": "JSON сниппета",
+            "example": "{ \"login\": \"Test\", \"password\": \"P@ssw0rd\" }"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from "lucide-react";
+import { BadgeCheck, ChevronsUpDown, LogOut, Sparkles } from "lucide-react";
 import {
     Avatar,
     AvatarFallback,
@@ -77,16 +77,16 @@ export function NavUser({
                         <DropdownMenuGroup>
                             <DropdownMenuItem>
                                 <BadgeCheck />
-                                Account
+                                Профиль
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <CreditCard />
-                                Billing
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <Bell />
-                                Notifications
-                            </DropdownMenuItem>
+                            {/* <DropdownMenuItem> */}
+                            {/*    <CreditCard /> */}
+                            {/*    Billing */}
+                            {/* </DropdownMenuItem> */}
+                            {/* <DropdownMenuItem> */}
+                            {/*    <Bell /> */}
+                            {/*    Notifications */}
+                            {/* </DropdownMenuItem> */}
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={() => logout()}>

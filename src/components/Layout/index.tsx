@@ -2,6 +2,7 @@ import { SidebarProvider } from "@pin-code/uikit.lib";
 import { AppSidebar } from "@components/Sidebar";
 import { Outlet } from "react-router-dom";
 import { CSSProperties, FC } from "react";
+import { Modals } from "@components/Modals/Modals.tsx";
 
 type LayoutProps = {
     SecondSidebar?: FC;
@@ -14,6 +15,7 @@ const Layout: FC<LayoutProps> = ({ SecondSidebar }) => {
             <main className="w-full">
                 <Outlet />
             </main>
+            <Modals />
         </SidebarProvider>
     );
 };

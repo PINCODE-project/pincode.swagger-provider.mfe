@@ -66,12 +66,14 @@ const LoginForm = ({
                 <div className="grid gap-2">
                     <div className="flex items-center">
                         <Label htmlFor="password">Пароль</Label>
-                        <button
-                            className="ml-auto text-sm underline-offset-2 hover:underline"
-                            onClick={onForgotPassword}
-                        >
-                            Забыли пароль?
-                        </button>
+                        {onForgotPassword && (
+                            <button
+                                className="ml-auto text-sm underline-offset-2 hover:underline"
+                                onClick={onForgotPassword}
+                            >
+                                Забыли пароль?
+                            </button>
+                        )}
                     </div>
                     <Input
                         id="password"

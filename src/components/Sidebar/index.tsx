@@ -17,14 +17,15 @@ import {
 import { NavUser } from "@components/Sidebar/NavUser";
 import { $profile } from "@store/auth/profile";
 import { useUnit } from "effector-react";
-import { Link, useParams } from "react-router-dom";
-import { WorkspaceRouter } from "@domain/workspace";
-import { HomeRouter } from "@router/routes";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { HomeRouter } from "@router/constants.ts";
 
 export type NavItem = {
+    id: string;
     title: string;
-    url: string;
+    url?: string;
     subItems?: {
+        id: string;
         title: string;
         url: string;
     }[];
@@ -32,86 +33,40 @@ export type NavItem = {
     icon?: React.ReactNode;
 };
 
-const data = {
-    user: {
-        name: "shadcn",
-        email: "m@example.com",
-        avatar: "/avatars/shadcn.jpg",
+const navItems = [
+    {
+        title: "Схемы",
+        url: "#",
+        icon: <Server size={16} />,
+        isActive: true,
     },
-    navMain: [
-        {
-            title: "Схемы",
-            url: "#",
-            icon: <Server size={16} />,
-            isActive: true,
-        },
-        {
-            title: "Коллекции",
-            url: "#",
-            icon: <DraftingCompass />,
-            isActive: false,
-        },
-        {
-            title: "Документация",
-            url: "#",
-            icon: <LayoutList size={16} />,
-            isActive: false,
-        },
-    ],
-};
+    {
+        title: "Коллекции",
+        url: "#",
+        icon: <DraftingCompass />,
+        isActive: false,
+    },
+    {
+        title: "Документация",
+        url: "#",
+        icon: <LayoutList size={16} />,
+        isActive: false,
+    },
+];
 
 type AppSidebarProps = {
     secondSidebar?: React.ReactNode;
 };
 
 const AppSidebar: FC<AppSidebarProps> = ({ secondSidebar }) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const { workspaceId } = useParams();
 
-    // const [getWorkspaces, isLoadingGetWorkspaces] = useUnit([getWorkspacesFx, getWorkspacesFx.pending]);
-    // const workspaces = useUnit($workspaces);
-    // Note: I'm using state to show active item.
-    // IRL you should use the url/router.
-    // const [activeItem, setActiveItem] = React.useState("Inbox");
-    const activeItem = "Статьи";
     const { open } = useSidebar();
 
     const profile = useUnit($profile);
-    // const { setOpen } = useSidebar();
-
-    // useEffect(() => {
-    //     getWorkspaces();
-    // }, []);
-
-    // console.log(workspaces);
-    // const teams = useMemo(
-    //     () =>
-    //         workspaces
-    //             ? workspaces.map((workspace) => ({
-    //                   name: workspace.name,
-    //                   logo: workspace.emoji,
-    //                   plan: "Enterprise",
-    //               }))
-    //             : [],
-    //     [workspaces],
-    // );
-
-    //     [
-    //     {
-    //         name: "Acme Inc",
-    //         logo: GalleryVerticalEnd,
-    //         plan: "Enterprise",
-    //     },
-    //     {
-    //         name: "Acme Corp.",
-    //         logo: AudioWaveform,
-    //         plan: "Startup",
-    //     },
-    //     {
-    //         name: "Evil Corp.",
-    //         logo: Command,
-    //         plan: "Free",
-    //     },
-    // ];
 
     return (
         <>
@@ -122,13 +77,7 @@ const AppSidebar: FC<AppSidebarProps> = ({ secondSidebar }) => {
                             <SidebarMenuItem>
                                 <SidebarMenuButton size="lg" asChild className="md:!h-8 md:!p-0">
                                     {/* {isLoadingGetWorkspaces ? <Loader /> : <TeamSwitcher teams={teams} />} */}
-                                    <Link
-                                        to={
-                                            workspaceId
-                                                ? WorkspaceRouter.WorkspacePage(workspaceId)
-                                                : HomeRouter.HomePage
-                                        }
-                                    >
+                                    <Link to={HomeRouter.HomePage}>
                                         <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                                             <Command className="size-4" />
                                         </div>
@@ -142,29 +91,33 @@ const AppSidebar: FC<AppSidebarProps> = ({ secondSidebar }) => {
                         </SidebarMenu>
                     </SidebarHeader>
                     <SidebarContent>
-                        {workspaceId && (
-                            <SidebarGroup>
-                                <SidebarGroupContent className="px-1.5 md:!px-0">
-                                    <SidebarMenu>
-                                        {data.navMain.map((item) => (
-                                            <SidebarMenuItem key={item.title}>
-                                                <SidebarMenuButton
-                                                    tooltip={{
-                                                        children: item.title,
-                                                        hidden: false,
-                                                    }}
-                                                    isActive={activeItem === item.title}
-                                                    className="px-2.5 md:!px-2"
-                                                >
-                                                    {item.icon}
-                                                    <span>{item.title}</span>
-                                                </SidebarMenuButton>
-                                            </SidebarMenuItem>
-                                        ))}
-                                    </SidebarMenu>
-                                </SidebarGroupContent>
-                            </SidebarGroup>
-                        )}
+                        {/* {workspaceId && ( */}
+                        {/*    <SidebarGroup> */}
+                        {/*        <SidebarGroupContent className="px-1.5 md:!px-0"> */}
+                        {/*            <SidebarMenu> */}
+                        {/*                {navItems.map((item) => { */}
+                        {/*                    const isActive = location.pathname.startsWith(item.url); */}
+
+                        {/*                    return ( */}
+                        {/*                        <SidebarMenuItem key={item.title}> */}
+                        {/*                            <SidebarMenuButton */}
+                        {/*                                tooltip={{ */}
+                        {/*                                    children: item.title, */}
+                        {/*                                    hidden: false, */}
+                        {/*                                }} */}
+                        {/*                                isActive={isActive} */}
+                        {/*                                className="px-2.5 md:!px-2" */}
+                        {/*                            > */}
+                        {/*                                {item.icon} */}
+                        {/*                                <span>{item.title}</span> */}
+                        {/*                            </SidebarMenuButton> */}
+                        {/*                        </SidebarMenuItem> */}
+                        {/*                    ); */}
+                        {/*                })} */}
+                        {/*            </SidebarMenu> */}
+                        {/*        </SidebarGroupContent> */}
+                        {/*    </SidebarGroup> */}
+                        {/* )} */}
                     </SidebarContent>
                     <SidebarFooter className="gap-4">
                         <NavUser user={profile} />

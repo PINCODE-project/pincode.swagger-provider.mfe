@@ -5,245 +5,315 @@
  * Сервис для объединения Swagger схем в одном месте
  * OpenAPI spec version: 1.0
  */
-import { axiosInstance as axios } from "./axios";
-import type { AxiosRequestConfig, AxiosResponse } from "axios";
 import type {
-    AddMemberToWorkspaceDto,
-    AppControllerGetHealth200,
-    AuthControllerCallbackParams,
-    AuthControllerLogin200,
-    ConnectToProviderResponseDto,
-    CreateMicroserviceDto,
-    CreateProjectDto,
-    CreateSnippetDto,
-    CreateWorkspaceDto,
-    LoginDto,
-    RegisterDto,
-    UpdateSnippetDto,
-    UpdateUserDto,
-} from "../../model";
+  AddMemberToWorkspaceDto,
+  AppControllerGetHealth200,
+  AuthControllerCallbackParams,
+  ConnectToProviderResponseDto,
+  CreateMicroserviceDto,
+  CreateProjectDto,
+  CreateProjectResponseDto,
+  CreateSnippetDto,
+  CreateWorkspaceDto,
+  CreateWorkspaceResponseDto,
+  FindAllProjectByWorkspaceResponseDto,
+  FindAllWorkspaceResponseDto,
+  FindWorkspaceResponseDto,
+  GetMicroserviceResponseDto,
+  LoginDto,
+  LoginResponseDto,
+  RegisterDto,
+  UpdateSnippetDto,
+  UpdateUserDto
+} from '../../model'
+import { customInstance } from './axios';
+import type { BodyType } from './axios';
 
-/**
+
+type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
+
+
+  /**
  * @summary Регистрация пользователя
  */
-export const authControllerRegister = <TData = AxiosResponse<void>>(
-    registerDto: RegisterDto,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.post(`/api/auth/register`, registerDto, options);
-};
-
+export const authControllerRegister = (
+    registerDto: BodyType<RegisterDto>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<void>(
+      {url: `/api/auth/register`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: registerDto
+    },
+      options);
+    }
+  
 /**
  * @summary Авторизация пользователя
  */
-export const authControllerLogin = <TData = AxiosResponse<AuthControllerLogin200>>(
-    loginDto: LoginDto,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.post(`/api/auth/login`, loginDto, options);
-};
-
+export const authControllerLogin = (
+    loginDto: BodyType<LoginDto>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<LoginResponseDto>(
+      {url: `/api/auth/login`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: loginDto
+    },
+      options);
+    }
+  
 /**
  * Используется провайдерами
 
- Перенаправляет на фронт по адресу вместе с токеном /auth/callback?accessToken=ТОКЕН
+Перенаправляет на фронт по адресу вместе с токеном /auth/callback?accessToken=ТОКЕН
  * @summary Авторизация через Oauth
  */
-export const authControllerCallback = <TData = AxiosResponse<void>>(
-    provider: "yandex" | "github",
+export const authControllerCallback = (
+    provider: 'yandex' | 'github',
     params: AuthControllerCallbackParams,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.get(`/api/auth/oauth/callback/${provider}`, {
-        ...options,
-        params: { ...params, ...options?.params },
-    });
-};
-
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<void>(
+      {url: `/api/auth/oauth/callback/${provider}`, method: 'GET',
+        params
+    },
+      options);
+    }
+  
 /**
  * @summary Получение ссылки на Oauth авторизацию
  */
-export const authControllerConnect = <TData = AxiosResponse<ConnectToProviderResponseDto>>(
-    provider: "yandex" | "github",
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.get(`/api/auth/oauth/connect/${provider}`, options);
-};
-
+export const authControllerConnect = (
+    provider: 'yandex' | 'github',
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<ConnectToProviderResponseDto>(
+      {url: `/api/auth/oauth/connect/${provider}`, method: 'GET'
+    },
+      options);
+    }
+  
 /**
  * @summary Получение профиля пользователя
  */
-export const userControllerFindProfile = <TData = AxiosResponse<unknown>>(
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.get(`/api/user/profile`, options);
-};
-
+export const userControllerFindProfile = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<unknown>(
+      {url: `/api/user/profile`, method: 'GET'
+    },
+      options);
+    }
+  
 /**
  * @summary Обновление профиля пользователя
  */
-export const userControllerUpdateProfile = <TData = AxiosResponse<unknown>>(
-    updateUserDto: UpdateUserDto,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.patch(`/api/user/profile`, updateUserDto, options);
-};
-
+export const userControllerUpdateProfile = (
+    updateUserDto: BodyType<UpdateUserDto>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<unknown>(
+      {url: `/api/user/profile`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: updateUserDto
+    },
+      options);
+    }
+  
 /**
  * @summary Получение пользователя по ID
  */
-export const userControllerFindById = <TData = AxiosResponse<unknown>>(
+export const userControllerFindById = (
     id: string,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.get(`/api/user/by-id/${id}`, options);
-};
-
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<unknown>(
+      {url: `/api/user/by-id/${id}`, method: 'GET'
+    },
+      options);
+    }
+  
 /**
  * @summary Создание рабочего пространства
  */
-export const workspaceControllerCreate = <TData = AxiosResponse<unknown>>(
-    createWorkspaceDto: CreateWorkspaceDto,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.post(`/api/workspace`, createWorkspaceDto, options);
-};
-
+export const workspaceControllerCreate = (
+    createWorkspaceDto: BodyType<CreateWorkspaceDto>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<CreateWorkspaceResponseDto>(
+      {url: `/api/workspace`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: createWorkspaceDto
+    },
+      options);
+    }
+  
 /**
  * @summary Получение пространств пользователя
  */
-export const workspaceControllerFindAll = <TData = AxiosResponse<unknown>>(
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.get(`/api/workspace`, options);
-};
-
+export const workspaceControllerFindAll = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<FindAllWorkspaceResponseDto>(
+      {url: `/api/workspace`, method: 'GET'
+    },
+      options);
+    }
+  
 /**
  * @summary Добавить пользователя в пространство
  */
-export const workspaceControllerAddMemberToWorkspace = <TData = AxiosResponse<unknown>>(
-    addMemberToWorkspaceDto: AddMemberToWorkspaceDto,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.post(`/api/workspace/add-member`, addMemberToWorkspaceDto, options);
-};
-
+export const workspaceControllerAddMemberToWorkspace = (
+    addMemberToWorkspaceDto: BodyType<AddMemberToWorkspaceDto>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<unknown>(
+      {url: `/api/workspace/add-member`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: addMemberToWorkspaceDto
+    },
+      options);
+    }
+  
 /**
  * @summary Получение пространства
  */
-export const workspaceControllerFindOne = <TData = AxiosResponse<unknown>>(
+export const workspaceControllerFindOne = (
     id: string,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.get(`/api/workspace/${id}`, options);
-};
-
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<FindWorkspaceResponseDto>(
+      {url: `/api/workspace/${id}`, method: 'GET'
+    },
+      options);
+    }
+  
 /**
  * @summary Создание проекта
  */
-export const projectControllerCreate = <TData = AxiosResponse<unknown>>(
-    createProjectDto: CreateProjectDto,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.post(`/api/project`, createProjectDto, options);
-};
-
+export const projectControllerCreate = (
+    createProjectDto: BodyType<CreateProjectDto>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<CreateProjectResponseDto>(
+      {url: `/api/project`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: createProjectDto
+    },
+      options);
+    }
+  
 /**
  * @summary Получение всех проектов в пространстве
  */
-export const projectControllerFindAllBuWorkspace = <TData = AxiosResponse<unknown>>(
+export const projectControllerFindAllBuWorkspace = (
     workspaceId: string,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.get(`/api/project/by-workspace/${workspaceId}`, options);
-};
-
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<FindAllProjectByWorkspaceResponseDto>(
+      {url: `/api/project/by-workspace/${workspaceId}`, method: 'GET'
+    },
+      options);
+    }
+  
 /**
  * @summary Создание микросервиса (схемы)
  */
-export const microserviceControllerCreate = <TData = AxiosResponse<unknown>>(
-    createMicroserviceDto: CreateMicroserviceDto,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.post(`/api/microservice`, createMicroserviceDto, options);
-};
-
+export const microserviceControllerCreate = (
+    createMicroserviceDto: BodyType<CreateMicroserviceDto>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<unknown>(
+      {url: `/api/microservice`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: createMicroserviceDto
+    },
+      options);
+    }
+  
 /**
  * @summary Получение схемы
  */
-export const microserviceControllerFindOne = <TData = AxiosResponse<unknown>>(
+export const microserviceControllerFindOne = (
     id: string,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.get(`/api/microservice/${id}`, options);
-};
-
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<GetMicroserviceResponseDto>(
+      {url: `/api/microservice/${id}`, method: 'GET'
+    },
+      options);
+    }
+  
 /**
  * @summary Создание сниппета
  */
-export const snippetControllerCreate = <TData = AxiosResponse<unknown>>(
-    createSnippetDto: CreateSnippetDto,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.post(`/api/snippet`, createSnippetDto, options);
-};
-
+export const snippetControllerCreate = (
+    createSnippetDto: BodyType<CreateSnippetDto>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<unknown>(
+      {url: `/api/snippet`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: createSnippetDto
+    },
+      options);
+    }
+  
 /**
  * @summary Получение всех сниппетов пользователя
  */
-export const snippetControllerFindAll = <TData = AxiosResponse<unknown>>(
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.get(`/api/snippet`, options);
-};
-
+export const snippetControllerFindAll = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<unknown>(
+      {url: `/api/snippet`, method: 'GET'
+    },
+      options);
+    }
+  
 /**
  * @summary Обновление сниппета
  */
-export const snippetControllerUpdate = <TData = AxiosResponse<unknown>>(
+export const snippetControllerUpdate = (
     id: string,
-    updateSnippetDto: UpdateSnippetDto,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.patch(`/api/snippet/${id}`, updateSnippetDto, options);
-};
-
+    updateSnippetDto: BodyType<UpdateSnippetDto>,
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<unknown>(
+      {url: `/api/snippet/${id}`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: updateSnippetDto
+    },
+      options);
+    }
+  
 /**
  * @summary Удаление сниппета
  */
-export const snippetControllerRemove = <TData = AxiosResponse<void>>(
+export const snippetControllerRemove = (
     id: string,
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.delete(`/api/snippet/${id}`, options);
-};
-
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<void>(
+      {url: `/api/snippet/${id}`, method: 'DELETE'
+    },
+      options);
+    }
+  
 /**
  * @summary Проверка работоспособности БД
  */
-export const appControllerGetHealth = <TData = AxiosResponse<AppControllerGetHealth200>>(
-    options?: AxiosRequestConfig,
-): Promise<TData> => {
-    return axios.get(`/api/health`, options);
-};
-
-export type AuthControllerRegisterResult = AxiosResponse<void>;
-export type AuthControllerLoginResult = AxiosResponse<AuthControllerLogin200>;
-export type AuthControllerCallbackResult = AxiosResponse<void>;
-export type AuthControllerConnectResult = AxiosResponse<ConnectToProviderResponseDto>;
-export type UserControllerFindProfileResult = AxiosResponse<unknown>;
-export type UserControllerUpdateProfileResult = AxiosResponse<unknown>;
-export type UserControllerFindByIdResult = AxiosResponse<unknown>;
-export type WorkspaceControllerCreateResult = AxiosResponse<unknown>;
-export type WorkspaceControllerFindAllResult = AxiosResponse<unknown>;
-export type WorkspaceControllerAddMemberToWorkspaceResult = AxiosResponse<unknown>;
-export type WorkspaceControllerFindOneResult = AxiosResponse<unknown>;
-export type ProjectControllerCreateResult = AxiosResponse<unknown>;
-export type ProjectControllerFindAllBuWorkspaceResult = AxiosResponse<unknown>;
-export type MicroserviceControllerCreateResult = AxiosResponse<unknown>;
-export type MicroserviceControllerFindOneResult = AxiosResponse<unknown>;
-export type SnippetControllerCreateResult = AxiosResponse<unknown>;
-export type SnippetControllerFindAllResult = AxiosResponse<unknown>;
-export type SnippetControllerUpdateResult = AxiosResponse<unknown>;
-export type SnippetControllerRemoveResult = AxiosResponse<void>;
-export type AppControllerGetHealthResult = AxiosResponse<AppControllerGetHealth200>;
+export const appControllerGetHealth = (
+    
+ options?: SecondParameter<typeof customInstance>,) => {
+      return customInstance<AppControllerGetHealth200>(
+      {url: `/api/health`, method: 'GET'
+    },
+      options);
+    }
+  
+export type AuthControllerRegisterResult = NonNullable<Awaited<ReturnType<typeof authControllerRegister>>>
+export type AuthControllerLoginResult = NonNullable<Awaited<ReturnType<typeof authControllerLogin>>>
+export type AuthControllerCallbackResult = NonNullable<Awaited<ReturnType<typeof authControllerCallback>>>
+export type AuthControllerConnectResult = NonNullable<Awaited<ReturnType<typeof authControllerConnect>>>
+export type UserControllerFindProfileResult = NonNullable<Awaited<ReturnType<typeof userControllerFindProfile>>>
+export type UserControllerUpdateProfileResult = NonNullable<Awaited<ReturnType<typeof userControllerUpdateProfile>>>
+export type UserControllerFindByIdResult = NonNullable<Awaited<ReturnType<typeof userControllerFindById>>>
+export type WorkspaceControllerCreateResult = NonNullable<Awaited<ReturnType<typeof workspaceControllerCreate>>>
+export type WorkspaceControllerFindAllResult = NonNullable<Awaited<ReturnType<typeof workspaceControllerFindAll>>>
+export type WorkspaceControllerAddMemberToWorkspaceResult = NonNullable<Awaited<ReturnType<typeof workspaceControllerAddMemberToWorkspace>>>
+export type WorkspaceControllerFindOneResult = NonNullable<Awaited<ReturnType<typeof workspaceControllerFindOne>>>
+export type ProjectControllerCreateResult = NonNullable<Awaited<ReturnType<typeof projectControllerCreate>>>
+export type ProjectControllerFindAllBuWorkspaceResult = NonNullable<Awaited<ReturnType<typeof projectControllerFindAllBuWorkspace>>>
+export type MicroserviceControllerCreateResult = NonNullable<Awaited<ReturnType<typeof microserviceControllerCreate>>>
+export type MicroserviceControllerFindOneResult = NonNullable<Awaited<ReturnType<typeof microserviceControllerFindOne>>>
+export type SnippetControllerCreateResult = NonNullable<Awaited<ReturnType<typeof snippetControllerCreate>>>
+export type SnippetControllerFindAllResult = NonNullable<Awaited<ReturnType<typeof snippetControllerFindAll>>>
+export type SnippetControllerUpdateResult = NonNullable<Awaited<ReturnType<typeof snippetControllerUpdate>>>
+export type SnippetControllerRemoveResult = NonNullable<Awaited<ReturnType<typeof snippetControllerRemove>>>
+export type AppControllerGetHealthResult = NonNullable<Awaited<ReturnType<typeof appControllerGetHealth>>>

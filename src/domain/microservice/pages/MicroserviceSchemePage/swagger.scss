@@ -3,7 +3,7 @@
   min-height: 100vh;
 
   & > div {
-    @apply bg-white;
+    background: var(--background);
   }
 
   .wrapper {
@@ -75,6 +75,7 @@
   @apply text-neutral-700;
   @apply font-medium;
   font-family: var(--main-font), serif;
+
 }
 
 .swagger-ui .opblock .opblock-summary-description {
@@ -97,7 +98,7 @@
 .swagger-ui .opblock.opblock-delete .opblock-summary,
 .swagger-ui .opblock.opblock-patch .opblock-summary,
 .swagger-ui .opblock.opblock-put .opblock-summary {
-  @apply bg-neutral-100;
+  @apply bg-white;
   @apply border-neutral-300;
 }
 
@@ -339,7 +340,7 @@
 
 .dark {
   .swagger-ui > div {
-    @apply bg-black;
+    background: var(--background);
   }
 
   .swagger-ui .opblock .opblock-summary-path {

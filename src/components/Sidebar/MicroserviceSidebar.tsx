@@ -15,63 +15,39 @@ import { FC, useEffect, useMemo } from "react";
 import { useUnit } from "effector-react/effector-react.umd";
 import { $projects, getProjectsFx } from "@store/project/get-project";
 import Loader from "@components/Loader";
+import { useParams } from "react-router-dom";
 
 const MicroserviceSidebar: FC = () => {
+    const { workspaceId } = useParams();
+
     const [getProjects, isLoadingGetProjects] = useUnit([getProjectsFx, getProjectsFx.pending]);
     const projects = useUnit($projects);
 
-    const isLoading = isLoadingGetProjects;
-
     const items: NavItem[] = useMemo(() => {
-        return projects.map((project) => ({
-            icon: project.emoji,
-            title: project.name,
-            url: `project/${project.id}`,
-            subItems: project.microservices.map((microservice: any) => ({
-                title: microservice.name,
-                url: `microservice/${microservice.id}`,
-            })),
-        }));
-    }, [projects]);
-    // const navItems: NavItem[] = [
-    //     {
-    //         icon: "✋🏻",
-    //         title: "Изучение РЖЯ",
-    //         url: "/123",
-    //         subItems: [
-    //             { title: "SSO", url: "/1" },
-    //             { title: "ЛК пользователя", url: "/2" },
-    //             { title: "Обучение (Темы, разделы, уровни)", url: "/3" },
-    //         ],
-    //     },
-    //     {
-    //         title: "Swagger Provider",
-    //         url: "/getting-started",
-    //         subItems: [
-    //             { title: "Installation", url: "/installation" },
-    //             { title: "Configuration", url: "/getting-started#configuration" },
-    //         ],
-    //     },
-    //     {
-    //         title: "Бекенд теханалитика",
-    //         url: "/api-reference",
-    //         icon: "🔥",
-    //     },
-    //     {
-    //         title: "Сервис единой авторизации пин-код",
-    //         url: "/фцвфцв",
-    //         subItems: [{ title: "Общая поверхностная аналитика необходимых доработок", url: "/api-reference" }],
-    //     },
-    // ];
+        return projects
+            ? projects.map((project) => ({
+                  id: project.id,
+                  icon: project.emoji,
+                  title: project.name,
+                  // url: `project/${project.id}`,
+                  subItems: project.microservices.map((microservice: any) => ({
+                      id: microservice.id,
+                      title: microservice.name,
+                      url: `workspace/${workspaceId}/microservice/${microservice.id}`,
+                  })),
+              }))
+            : [];
+    }, [projects, workspaceId]);
+    console.log(items);
 
     useEffect(() => {
-        getProjects("9214d1f3-2abe-488b-ad00-fc2a136ba419");
-    }, [getProjects]);
+        getProjects(workspaceId || "");
+    }, [getProjects, workspaceId]);
 
     return (
         <Sidebar
             collapsible="none"
-            className="hidden flex-1 md:flex !w-[calc(350px_-_var(--sidebar-width-icon)_+_1px)]"
+            className="hidden flex-1 md:!flex !w-[calc(350px_-_var(--sidebar-width-icon)_+_1px)]"
         >
             <SidebarHeader>
                 <form>
@@ -87,7 +63,7 @@ const MicroserviceSidebar: FC = () => {
                 </form>
             </SidebarHeader>
             <SidebarContent className="overflow-x-hidden">
-                {isLoading ? <Loader /> : <SidebarNavigation items={items} label={"Схемы"} />}
+                {isLoadingGetProjects ? <Loader /> : <SidebarNavigation items={items} label={"Схемы"} />}
             </SidebarContent>
             <SidebarFooter></SidebarFooter>
         </Sidebar>
