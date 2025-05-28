@@ -18,7 +18,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "Пользователь успешно зарегистрировался",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterResponseDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -181,6 +188,16 @@
         "summary": "Получение профиля пользователя",
         "parameters": [],
         "responses": {
+          "200": {
+            "description": "Профиль пользователя",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProfileResponseDto"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Не авторизован",
             "content": {
@@ -1160,10 +1177,10 @@
   ],
   "servers": [
     {
-      "url": "https://backend-swagger.pincode-infra.ru/"
+      "url": "http://localhost:9001"
     },
     {
-      "url": "http://localhost:9001"
+      "url": "https://backend-swagger.pincode-infra.ru/"
     }
   ],
   "components": {
@@ -1172,14 +1189,21 @@
         "scheme": "bearer",
         "bearerFormat": "JWT",
         "type": "http"
-      },
-      "refreshToken": {
-        "scheme": "bearer",
-        "bearerFormat": "JWT",
-        "type": "http"
       }
     },
     "schemas": {
+      "RegisterResponseDto": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Вы успешно зарегистрировались."
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
       "RegisterDto": {
         "type": "object",
         "properties": {
@@ -1248,6 +1272,69 @@
         },
         "required": [
           "url"
+        ]
+      },
+      "GetProfileResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "e26ad02b-c96c-44ec-b6ee-633c3dab3c4f"
+          },
+          "email": {
+            "type": "string",
+            "example": "test@mail.ru"
+          },
+          "displayName": {
+            "type": "string",
+            "example": "Test"
+          },
+          "picture": {
+            "type": "string",
+            "example": ""
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "REGULAR",
+              "ADMIN"
+            ],
+            "example": "REGULAR"
+          },
+          "isVerified": {
+            "type": "boolean",
+            "example": true
+          },
+          "isTwoFactorEnabled": {
+            "type": "boolean",
+            "example": false
+          },
+          "method": {
+            "type": "string",
+            "example": "CREDENTIALS"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-04-13T18:08:45.639Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-04-13T18:08:45.639Z"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "displayName",
+          "picture",
+          "role",
+          "isVerified",
+          "isTwoFactorEnabled",
+          "method",
+          "createdAt",
+          "updatedAt"
         ]
       },
       "UpdateUserDto": {

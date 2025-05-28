@@ -1,8 +1,7 @@
 import Axios, { AxiosError, AxiosRequestConfig } from "axios";
 
 export const AXIOS_INSTANCE = Axios.create({
-    baseURL: "http://localhost:9001/",
-    // baseURL: "https://backend-keystation.pincode-infra.ru/",
+    baseURL: import.meta.env.VITE_BACKEND_URL ?? "http://localhost:9001/",
     withCredentials: true,
     headers: {
         "Content-Type": "application/json",

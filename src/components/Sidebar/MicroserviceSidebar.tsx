@@ -38,7 +38,6 @@ const MicroserviceSidebar: FC = () => {
               }))
             : [];
     }, [projects, workspaceId]);
-    console.log(items);
 
     useEffect(() => {
         getProjects(workspaceId || "");
@@ -63,9 +62,9 @@ const MicroserviceSidebar: FC = () => {
                 </form>
             </SidebarHeader>
             <SidebarContent className="overflow-x-hidden">
-                {isLoadingGetProjects ? <Loader /> : <SidebarNavigation items={items} label={"Схемы"} />}
+                {isLoadingGetProjects || !projects ? <Loader /> : <SidebarNavigation items={items} label={"Схемы"} />}
             </SidebarContent>
-            <SidebarFooter></SidebarFooter>
+            {/* <SidebarFooter></SidebarFooter> */}
         </Sidebar>
     );
 };

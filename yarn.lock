@@ -193,9 +193,9 @@
     regenerator-runtime "^0.14.0"
 
 "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
-  version "7.27.1"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.27.1.tgz#9fce313d12c9a77507f264de74626e87fd0dc541"
-  integrity sha512-1x3D2xEk2fRo3PAhwQwu5UubzgiVWSXTBfWpVd2Mx2AzRqJuDJCsgaDVZ7HB5iGzDW1Hl1sWN2mFyKjmR9uAog==
+  version "7.27.3"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.27.3.tgz#10491113799fb8d77e1d9273384d5d68deeea8f6"
+  integrity sha512-7EYtGezsdiDMyY80+65EzwiGmcJqpmcZCojSXaRgdrBaGtWTgDZKq69cPIVped6MkIM78cTQ2GOiEYjwOlG4xw==
 
 "@babel/template@^7.26.9":
   version "7.26.9"
@@ -782,9 +782,9 @@
     "@parcel/watcher-win32-x64" "2.5.1"
 
 "@pin-code/uikit.lib@^1.1.0":
-  version "1.1.36"
-  resolved "https://registry.yarnpkg.com/@pin-code/uikit.lib/-/uikit.lib-1.1.36.tgz#4a6c7299ae4ff38a88a0a91f03d2a576c662f629"
-  integrity sha512-6A9B3I9x9BJKSyWJ1LwjycFRuoQxAmBnAxAjlKcVvxctgL2eKe0RUsOILVQzqRvTe+py1vlpylR0nhXRi+iKpw==
+  version "1.1.41"
+  resolved "https://registry.yarnpkg.com/@pin-code/uikit.lib/-/uikit.lib-1.1.41.tgz#be291a3f538a5bbd9c3bc8eb9e3c3c75b155b888"
+  integrity sha512-DCf80uV0MmVxnHovHBmyG+LHmqXzP9nehlNgeFE3eS0bTtvPvOXJhss1HbkyyxrsXxWBuEYI6FT6CORFIm5vDg==
   dependencies:
     "@bem-react/classname" "1.6.0"
     "@hocuspocus/provider" "^2.15.0"

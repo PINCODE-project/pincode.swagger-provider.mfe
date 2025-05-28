@@ -20,9 +20,11 @@ import type {
   FindAllWorkspaceResponseDto,
   FindWorkspaceResponseDto,
   GetMicroserviceResponseDto,
+  GetProfileResponseDto,
   LoginDto,
   LoginResponseDto,
   RegisterDto,
+  RegisterResponseDto,
   UpdateSnippetDto,
   UpdateUserDto
 } from '../../model'
@@ -39,7 +41,7 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 export const authControllerRegister = (
     registerDto: BodyType<RegisterDto>,
  options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<void>(
+      return customInstance<RegisterResponseDto>(
       {url: `/api/auth/register`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: registerDto
@@ -96,7 +98,7 @@ export const authControllerConnect = (
 export const userControllerFindProfile = (
     
  options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<unknown>(
+      return customInstance<GetProfileResponseDto>(
       {url: `/api/user/profile`, method: 'GET'
     },
       options);
