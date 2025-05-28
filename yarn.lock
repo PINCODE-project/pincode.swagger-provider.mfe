@@ -782,9 +782,9 @@
     "@parcel/watcher-win32-x64" "2.5.1"
 
 "@pin-code/uikit.lib@^1.1.0":
-  version "1.1.41"
-  resolved "https://registry.yarnpkg.com/@pin-code/uikit.lib/-/uikit.lib-1.1.41.tgz#be291a3f538a5bbd9c3bc8eb9e3c3c75b155b888"
-  integrity sha512-DCf80uV0MmVxnHovHBmyG+LHmqXzP9nehlNgeFE3eS0bTtvPvOXJhss1HbkyyxrsXxWBuEYI6FT6CORFIm5vDg==
+  version "1.1.42"
+  resolved "https://registry.yarnpkg.com/@pin-code/uikit.lib/-/uikit.lib-1.1.42.tgz#8dabb319d380b21b2c647bfe5bebedd38ece5aa6"
+  integrity sha512-sMZ80B7eYjmUwhAdDam3zI8dRA5RaYuu2HQjAeC91gO5LRGqLkSCV16cBIQoSwOKPf5Vjqhg7BVPHrZZI5PI2Q==
   dependencies:
     "@bem-react/classname" "1.6.0"
     "@hocuspocus/provider" "^2.15.0"
