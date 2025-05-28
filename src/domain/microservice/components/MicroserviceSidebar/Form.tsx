@@ -3,22 +3,22 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
     Button,
+    Form as InternalForm,
     FormControl,
     FormField,
     FormItem,
     FormLabel,
     FormMessage,
     Input,
-    Form as InternalForm,
-    Textarea,
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
+    Textarea,
 } from "@pin-code/uikit.lib";
-import { useEffect, useState } from "react";
-import { CreateMicroserviceDto, CreateMicroserviceDtoType } from "@model/index";
+import { useEffect } from "react";
+import { CreateMicroserviceDto } from "@model/index";
 import { useStore } from "effector-react";
 import { $projects, getProjectsFx } from "@store/project/get-project";
 import { $workspace } from "@store/workspace/get-workspace";
@@ -40,7 +40,7 @@ const formSchema = z.object({
 export const Form = ({ defaultValues, submitButtonText, onSubmit }: Props) => {
     const workspace = useStore($workspace);
     const projects = useStore($projects);
-    
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -49,9 +49,9 @@ export const Form = ({ defaultValues, submitButtonText, onSubmit }: Props) => {
             ...defaultValues,
         },
     });
-    
+
     const type = form.watch("type");
-    
+
     // Загружаем проекты при открытии формы
     useEffect(() => {
         if (workspace?.id) {
@@ -68,10 +68,7 @@ export const Form = ({ defaultValues, submitButtonText, onSubmit }: Props) => {
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Проект</FormLabel>
-                            <Select 
-                                onValueChange={field.onChange} 
-                                defaultValue={field.value}
-                            >
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
                                     <SelectTrigger>
                                         <SelectValue placeholder="Выберите проект" />
@@ -89,7 +86,7 @@ export const Form = ({ defaultValues, submitButtonText, onSubmit }: Props) => {
                         </FormItem>
                     )}
                 />
-                
+
                 <FormField
                     control={form.control}
                     name="name"
@@ -110,10 +107,7 @@ export const Form = ({ defaultValues, submitButtonText, onSubmit }: Props) => {
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Тип</FormLabel>
-                            <Select 
-                                onValueChange={field.onChange} 
-                                defaultValue={field.value}
-                            >
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
                                     <SelectTrigger>
                                         <SelectValue placeholder="Выберите тип" />
@@ -134,9 +128,7 @@ export const Form = ({ defaultValues, submitButtonText, onSubmit }: Props) => {
                     name="content"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>
-                                {type === "TEXT" ? "Содержимое" : "URL"}
-                            </FormLabel>
+                            <FormLabel>{type === "TEXT" ? "Содержимое" : "URL"}</FormLabel>
                             <FormControl>
                                 {type === "TEXT" ? (
                                     <Textarea {...field} rows={5} />
@@ -148,7 +140,7 @@ export const Form = ({ defaultValues, submitButtonText, onSubmit }: Props) => {
                         </FormItem>
                     )}
                 />
-                
+
                 <FormField
                     control={form.control}
                     name="isUpdateByGetScheme"
@@ -163,18 +155,16 @@ export const Form = ({ defaultValues, submitButtonText, onSubmit }: Props) => {
                                 />
                             </FormControl>
                             <div className="space-y-1 leading-none">
-                                <FormLabel>
-                                    Обновлять схему при получении
-                                </FormLabel>
+                                <FormLabel>Обновлять схему при получении</FormLabel>
                             </div>
                         </FormItem>
                     )}
                 />
-                
+
                 <div className="pt-4 grid">
                     <Button type="submit">{submitButtonText}</Button>
                 </div>
             </form>
         </InternalForm>
     );
-}; 
+};
