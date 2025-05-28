@@ -64,7 +64,7 @@ const MicroserviceSidebar: FC = () => {
             <SidebarContent className="overflow-x-hidden">
                 {isLoadingGetProjects || !projects ? <Loader /> : <SidebarNavigation items={items} label={"Схемы"} />}
             </SidebarContent>
-            {/* <SidebarFooter></SidebarFooter> */}
+            <SidebarFooter></SidebarFooter>
         </Sidebar>
     );
 };
