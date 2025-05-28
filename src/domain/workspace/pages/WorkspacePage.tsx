@@ -9,7 +9,7 @@ import { Typography } from "@/components/Typography";
 const WorkspacePage = () => {
     const { workspaceId } = useParams<{ workspaceId: string }>();
 
-    const [getWorkspace, isLoadingWorkspace] = useUnit([getWorkspaceFx, getWorkspaceFx.pending]);
+    const [getWorkspace] = useUnit([getWorkspaceFx]);
     const workspace = useUnit($workspace);
     const [isOpenCreateProject, setIsOpenCreateProject] = useState<boolean>(false);
 

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Command, DraftingCompass, LayoutList, Server } from "lucide-react";
+import { Command } from "lucide-react";
 import {
     Sidebar,
     SidebarContent,
@@ -15,7 +15,7 @@ import {
 import { NavUser } from "@components/Sidebar/NavUser";
 import { $profile } from "@store/auth/profile";
 import { useUnit } from "effector-react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { HomeRouter } from "@router/constants.ts";
 
 export type NavItem = {
@@ -31,36 +31,36 @@ export type NavItem = {
     icon?: React.ReactNode;
 };
 
-const navItems = [
-    {
-        title: "Схемы",
-        url: "#",
-        icon: <Server size={16} />,
-        isActive: true,
-    },
-    {
-        title: "Коллекции",
-        url: "#",
-        icon: <DraftingCompass />,
-        isActive: false,
-    },
-    {
-        title: "Документация",
-        url: "#",
-        icon: <LayoutList size={16} />,
-        isActive: false,
-    },
-];
+// const navItems = [
+//     {
+//         title: "Схемы",
+//         url: "#",
+//         icon: <Server size={16} />,
+//         isActive: true,
+//     },
+//     {
+//         title: "Коллекции",
+//         url: "#",
+//         icon: <DraftingCompass />,
+//         isActive: false,
+//     },
+//     {
+//         title: "Документация",
+//         url: "#",
+//         icon: <LayoutList size={16} />,
+//         isActive: false,
+//     },
+// ];
 
 type AppSidebarProps = {
     secondSidebar?: React.ReactNode;
 };
 
 const AppSidebar: FC<AppSidebarProps> = ({ secondSidebar }) => {
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    const { workspaceId } = useParams();
+    // const navigate = useNavigate();
+    // const location = useLocation();
+    //
+    // const { workspaceId } = useParams();
 
     const { open } = useSidebar();
 

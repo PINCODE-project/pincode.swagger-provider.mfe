@@ -1,16 +1,16 @@
-import { FC, PropsWithChildren, useEffect } from "react";
+import { FC, useEffect } from "react";
 import { Navigate, Outlet, useSearchParams } from "react-router-dom";
 import { useUnit } from "effector-react";
 import { Loader } from "lucide-react";
 import { $isAuth, $token, checkTokenFx, setIsAuth, tokenExpired } from "@store/auth/token";
 import { AuthRouter, HomeRouter } from "@router/constants.ts";
 
-type Props = PropsWithChildren & {
+type Props = {
     withAuthGuard?: boolean | undefined;
     withNoAuthGuard?: boolean | undefined;
 };
 
-export const ProtectRoute: FC<Props> = ({ withAuthGuard = false, withNoAuthGuard = false, children }) => {
+export const ProtectRoute: FC<Props> = ({ withAuthGuard = false, withNoAuthGuard = false }) => {
     const isAuth = useUnit($isAuth);
     const token = useUnit($token);
     const [searchParams] = useSearchParams();
