@@ -6,13 +6,17 @@ import RequestBodyEditorPlugin from "@components/SwaggerUI/plugins/RequestBodyEd
 import { $microservice, getMicroserviceFx } from "@store/microservice/get-microservice.ts";
 import { useUnit } from "effector-react";
 import Loader from "@components/Loader";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Button } from "@pin-code/uikit.lib";
+import { Plus } from "lucide-react";
+import { MicroserviceSidebar } from "@domain/microservice/components/MicroserviceSidebar";
 
 const MicroserviceSchemePage = () => {
     const { microserviceId } = useParams();
     const microservice = useUnit($microservice);
     const [getMicroservice, isLoadingMicroservice] = useUnit([getMicroserviceFx, getMicroserviceFx.pending]);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
         getMicroservice(microserviceId ?? "");
@@ -23,66 +27,80 @@ const MicroserviceSchemePage = () => {
     }
 
     return (
-        <SwaggerUI
-            // filter={true}
-            spec={microservice?.content}
-            // requestSnippetsEnabled={true}
-            // requestSnippets={{
-            //     generators: {
-            //         curl_bash: {
-            //             title: "cURL (bash)",
-            //             syntax: "bash",
-            //         },
-            //         curl_powershell: {
-            //             title: "cURL (PowerShell)",
-            //             syntax: "powershell",
-            //         },
-            //         curl_cmd: {
-            //             title: "cURL (CMD)",
-            //             syntax: "bash",
-            //         },
-            //     },
-            //     defaultExpanded: true,
-            //     languages: null,
-            // }}
-            plugins={[
-                // () => ({
-                //     wrapComponents: {
-                //         OperationSummaryPath: (Original: any) =>
-                //             function AF(props: any) {
-                //                 return (
-                //                     <span style={{ display: "flex" }}>
-                //                         Солнце
-                //                         <Original
-                //                             {...{
-                //                                 ...props,
-                //                                 specPath: { ...props.specPath, _tail: ["paths", "hui", "post"] },
-                //                             }}
-                //                         />
-                //                     </span>
-                //                 );
-                //             },
-                //     },
-                // }),
-                // (system: any) => ({
-                //     components: {
-                //         OperationSummaryMethod: (props: any) => {
-                //             console.log("daw", system, "daw,", props);
-                //             return <div>Здесь метод: {props.method}</div>;
+        <>
+            <div className="flex justify-between items-center mb-4">
+                <h1 className="text-xl font-semibold">{microservice?.name}</h1>
+                <Button onClick={() => setIsSidebarOpen(true)} variant="default">
+                    <Plus className="mr-2 h-4 w-4" />
+                    Создать микросервис
+                </Button>
+            </div>
+            <SwaggerUI
+                // filter={true}
+                spec={microservice?.content}
+                // requestSnippetsEnabled={true}
+                // requestSnippets={{
+                //     generators: {
+                //         curl_bash: {
+                //             title: "cURL (bash)",
+                //             syntax: "bash",
                 //         },
-                //         Logo: () => {
-                //             return <div>LOGO</div>;
+                //         curl_powershell: {
+                //             title: "cURL (PowerShell)",
+                //             syntax: "powershell",
                 //         },
-                //         OptionControlArrow: (props: any) => {
-                //             console.log("collapse", props);
-                //             return <div>Collapse</div>;
+                //         curl_cmd: {
+                //             title: "cURL (CMD)",
+                //             syntax: "bash",
                 //         },
                 //     },
-                // }),
-                OperationSummaryPlugin,
-                RequestBodyEditorPlugin,
-            ]}
-        />
+                //     defaultExpanded: true,
+                //     languages: null,
+                // }}
+                plugins={[
+                    // () => ({
+                    //     wrapComponents: {
+                    //         OperationSummaryPath: (Original: any) =>
+                    //             function AF(props: any) {
+                    //                 return (
+                    //                     <span style={{ display: "flex" }}>
+                    //                         Солнце
+                    //                         <Original
+                    //                             {...{
+                    //                                 ...props,
+                    //                                 specPath: { ...props.specPath, _tail: ["paths", "hui", "post"] },
+                    //                             }}
+                    //                         />
+                    //                     </span>
+                    //                 );
+                    //             },
+                    //     },
+                    // }),
+                    // (system: any) => ({
+                    //     components: {
+                    //         OperationSummaryMethod: (props: any) => {
+                    //             console.log("daw", system, "daw,", props);
+                    //             return <div>Здесь метод: {props.method}</div>;
+                    //         },
+                    //         Logo: () => {
+                    //             return <div>LOGO</div>;
+                    //         },
+                    //         OptionControlArrow: (props: any) => {
+                    //             console.log("collapse", props);
+                    //             return <div>Collapse</div>;
+                    //         },
+                    //     },
+                    // }),
+                    OperationSummaryPlugin,
+                    RequestBodyEditorPlugin,
+                ]}
+            />
+            <MicroserviceSidebar 
+                isOpen={isSidebarOpen} 
+                setIsOpen={setIsSidebarOpen} 
+                isCreating={true} 
+            />
+        </>
     );
 };
 
