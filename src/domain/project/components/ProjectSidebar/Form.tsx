@@ -20,6 +20,7 @@ type Props = {
     onSubmit: (data: CreateProjectDto) => void;
     submitButtonText: string;
     workspaceId: string;
+    isLoading: boolean;
 };
 
 const formSchema = z.object({
@@ -28,7 +29,7 @@ const formSchema = z.object({
     description: z.string().min(2, "Минимальная длина - 2").max(50, "Максимальная длина - 50"),
 });
 
-export const Form = ({ defaultValues, submitButtonText, onSubmit, workspaceId }: Props) => {
+export const Form = ({ defaultValues, submitButtonText, onSubmit, workspaceId, isLoading }: Props) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues,
@@ -91,7 +92,9 @@ export const Form = ({ defaultValues, submitButtonText, onSubmit, workspaceId }:
                     )}
                 />
                 <div className="pt-4 grid">
-                    <Button type="submit">{submitButtonText}</Button>
+                    <Button type="submit" disabled={isLoading}>
+                        {submitButtonText}
+                    </Button>
                 </div>
             </form>
         </InternalForm>

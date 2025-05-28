@@ -1,4 +1,5 @@
 import {
+    Button,
     Input,
     Label,
     Sidebar,
@@ -8,9 +9,8 @@ import {
     SidebarGroupContent,
     SidebarHeader,
     SidebarNavigation,
-    Button,
 } from "@pin-code/uikit.lib";
-import { Search, Plus } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { NavItem } from "@components/Sidebar/index";
 import { FC, useEffect, useMemo, useState } from "react";
 import { useUnit } from "effector-react/effector-react.umd";
@@ -18,10 +18,12 @@ import { $projects, getProjectsFx } from "@store/project/get-project";
 import Loader from "@components/Loader";
 import { useParams } from "react-router-dom";
 import { MicroserviceSidebar as CreateMicroserviceSidebar } from "@domain/microservice/components/MicroserviceSidebar";
+import { ProjectSidebar } from "@domain/project";
 
 const MicroserviceSidebar: FC = () => {
     const { workspaceId } = useParams();
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isMicroserviceSidebarOpen, setIsMicroserviceSidebarOpen] = useState(false);
+    const [isProjectSidebarOpen, setIsProjectSidebarOpen] = useState(false);
 
     const [getProjects, isLoadingGetProjects] = useUnit([getProjectsFx, getProjectsFx.pending]);
     const projects = useUnit($projects);
@@ -66,21 +68,38 @@ const MicroserviceSidebar: FC = () => {
                     </form>
                 </SidebarHeader>
                 <SidebarContent className="overflow-x-hidden">
-                    {isLoadingGetProjects || !projects ? <Loader /> : <SidebarNavigation items={items} label={"Схемы"} />}
+                    {isLoadingGetProjects || !projects ? (
+                        <Loader />
+                    ) : (
+                        <SidebarNavigation items={items} label={"Схемы"} />
+                    )}
                 </SidebarContent>
-                <SidebarFooter className="p-3">
-                    <Button onClick={() => setIsSidebarOpen(true)} variant="default" className="w-full">
+                <SidebarFooter className="p-3 flex flex-col gap-2">
+                    <Button onClick={() => setIsProjectSidebarOpen(true)} variant="outline" className="w-full">
+                        <Plus className="mr-2 h-4 w-4" />
+                        Создать проект
+                    </Button>
+                    <Button onClick={() => setIsMicroserviceSidebarOpen(true)} variant="outline" className="w-full">
                         <Plus className="mr-2 h-4 w-4" />
                         Создать микросервис
                     </Button>
                 </SidebarFooter>
             </Sidebar>
-            
-            <CreateMicroserviceSidebar 
-                isOpen={isSidebarOpen} 
-                setIsOpen={setIsSidebarOpen} 
-                isCreating={true} 
+
+            <CreateMicroserviceSidebar
+                isOpen={isMicroserviceSidebarOpen}
+                setIsOpen={setIsMicroserviceSidebarOpen}
+                isCreating={true}
             />
+
+            {workspaceId && (
+                <ProjectSidebar
+                    isOpen={isProjectSidebarOpen}
+                    setIsOpen={setIsProjectSidebarOpen}
+                    isCreating={true}
+                    workspaceId={workspaceId}
+                />
+            )}
         </>
     );
 };

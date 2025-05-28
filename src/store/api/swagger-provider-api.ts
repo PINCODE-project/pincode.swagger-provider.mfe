@@ -6,316 +6,373 @@
  * OpenAPI spec version: 1.0
  */
 import type {
-  AddMemberToWorkspaceDto,
-  AppControllerGetHealth200,
-  AuthControllerCallbackParams,
-  ConnectToProviderResponseDto,
-  CreateMicroserviceDto,
-  CreateProjectDto,
-  CreateProjectResponseDto,
-  CreateSnippetDto,
-  CreateWorkspaceDto,
-  CreateWorkspaceResponseDto,
-  FindAllProjectByWorkspaceResponseDto,
-  FindAllWorkspaceResponseDto,
-  FindWorkspaceResponseDto,
-  GetMicroserviceResponseDto,
-  GetProfileResponseDto,
-  LoginDto,
-  LoginResponseDto,
-  RegisterDto,
-  RegisterResponseDto,
-  UpdateSnippetDto,
-  UpdateUserDto
-} from '../../model'
-import { customInstance } from './axios';
-import type { BodyType } from './axios';
-
+    AddMemberToWorkspaceDto,
+    AppControllerGetHealth200,
+    AuthControllerCallbackParams,
+    ConnectToProviderResponseDto,
+    CreateMicroserviceDto,
+    CreateProjectDto,
+    CreateProjectResponseDto,
+    CreateSnippetDto,
+    CreateWorkspaceDto,
+    CreateWorkspaceResponseDto,
+    FindAllProjectByWorkspaceResponseDto,
+    FindAllWorkspaceResponseDto,
+    FindWorkspaceResponseDto,
+    GetMicroserviceResponseDto,
+    GetProfileResponseDto,
+    LoginDto,
+    LoginResponseDto,
+    RegisterDto,
+    RegisterResponseDto,
+    UpdateSnippetDto,
+    UpdateUserDto,
+} from "../../model";
+import type { BodyType } from "./axios";
+import { customInstance } from "./axios";
 
 type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 
-
-  /**
+/**
  * @summary Регистрация пользователя
  */
 export const authControllerRegister = (
     registerDto: BodyType<RegisterDto>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<RegisterResponseDto>(
-      {url: `/api/auth/register`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: registerDto
-    },
-      options);
-    }
-  
+    options?: SecondParameter<typeof customInstance>,
+) => {
+    return customInstance<RegisterResponseDto>(
+        {
+            url: `/api/auth/register`,
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            data: registerDto,
+        },
+        options,
+    );
+};
+
 /**
  * @summary Авторизация пользователя
  */
-export const authControllerLogin = (
-    loginDto: BodyType<LoginDto>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<LoginResponseDto>(
-      {url: `/api/auth/login`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: loginDto
-    },
-      options);
-    }
-  
+export const authControllerLogin = (loginDto: BodyType<LoginDto>, options?: SecondParameter<typeof customInstance>) => {
+    return customInstance<LoginResponseDto>(
+        {
+            url: `/api/auth/login`,
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            data: loginDto,
+        },
+        options,
+    );
+};
+
 /**
  * Используется провайдерами
 
-Перенаправляет на фронт по адресу вместе с токеном /auth/callback?accessToken=ТОКЕН
+ Перенаправляет на фронт по адресу вместе с токеном /auth/callback?accessToken=ТОКЕН
  * @summary Авторизация через Oauth
  */
 export const authControllerCallback = (
-    provider: 'yandex' | 'github',
+    provider: "yandex" | "github",
     params: AuthControllerCallbackParams,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<void>(
-      {url: `/api/auth/oauth/callback/${provider}`, method: 'GET',
-        params
-    },
-      options);
-    }
-  
+    options?: SecondParameter<typeof customInstance>,
+) => {
+    return customInstance<void>(
+        {
+            url: `/api/auth/oauth/callback/${provider}`,
+            method: "GET",
+            params,
+        },
+        options,
+    );
+};
+
 /**
  * @summary Получение ссылки на Oauth авторизацию
  */
 export const authControllerConnect = (
-    provider: 'yandex' | 'github',
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<ConnectToProviderResponseDto>(
-      {url: `/api/auth/oauth/connect/${provider}`, method: 'GET'
-    },
-      options);
-    }
-  
+    provider: "yandex" | "github",
+    options?: SecondParameter<typeof customInstance>,
+) => {
+    return customInstance<ConnectToProviderResponseDto>(
+        {
+            url: `/api/auth/oauth/connect/${provider}`,
+            method: "GET",
+        },
+        options,
+    );
+};
+
 /**
  * @summary Получение профиля пользователя
  */
-export const userControllerFindProfile = (
-    
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<GetProfileResponseDto>(
-      {url: `/api/user/profile`, method: 'GET'
-    },
-      options);
-    }
-  
+export const userControllerFindProfile = (options?: SecondParameter<typeof customInstance>) => {
+    return customInstance<GetProfileResponseDto>(
+        {
+            url: `/api/user/profile`,
+            method: "GET",
+        },
+        options,
+    );
+};
+
 /**
  * @summary Обновление профиля пользователя
  */
 export const userControllerUpdateProfile = (
     updateUserDto: BodyType<UpdateUserDto>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<unknown>(
-      {url: `/api/user/profile`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: updateUserDto
-    },
-      options);
-    }
-  
+    options?: SecondParameter<typeof customInstance>,
+) => {
+    return customInstance<unknown>(
+        {
+            url: `/api/user/profile`,
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            data: updateUserDto,
+        },
+        options,
+    );
+};
+
 /**
  * @summary Получение пользователя по ID
  */
-export const userControllerFindById = (
-    id: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<unknown>(
-      {url: `/api/user/by-id/${id}`, method: 'GET'
-    },
-      options);
-    }
-  
+export const userControllerFindById = (id: string, options?: SecondParameter<typeof customInstance>) => {
+    return customInstance<unknown>(
+        {
+            url: `/api/user/by-id/${id}`,
+            method: "GET",
+        },
+        options,
+    );
+};
+
 /**
  * @summary Создание рабочего пространства
  */
 export const workspaceControllerCreate = (
     createWorkspaceDto: BodyType<CreateWorkspaceDto>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<CreateWorkspaceResponseDto>(
-      {url: `/api/workspace`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createWorkspaceDto
-    },
-      options);
-    }
-  
+    options?: SecondParameter<typeof customInstance>,
+) => {
+    return customInstance<CreateWorkspaceResponseDto>(
+        {
+            url: `/api/workspace`,
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            data: createWorkspaceDto,
+        },
+        options,
+    );
+};
+
 /**
  * @summary Получение пространств пользователя
  */
-export const workspaceControllerFindAll = (
-    
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<FindAllWorkspaceResponseDto>(
-      {url: `/api/workspace`, method: 'GET'
-    },
-      options);
-    }
-  
+export const workspaceControllerFindAll = (options?: SecondParameter<typeof customInstance>) => {
+    return customInstance<FindAllWorkspaceResponseDto>(
+        {
+            url: `/api/workspace`,
+            method: "GET",
+        },
+        options,
+    );
+};
+
 /**
  * @summary Добавить пользователя в пространство
  */
 export const workspaceControllerAddMemberToWorkspace = (
     addMemberToWorkspaceDto: BodyType<AddMemberToWorkspaceDto>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<unknown>(
-      {url: `/api/workspace/add-member`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: addMemberToWorkspaceDto
-    },
-      options);
-    }
-  
+    options?: SecondParameter<typeof customInstance>,
+) => {
+    return customInstance<unknown>(
+        {
+            url: `/api/workspace/add-member`,
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            data: addMemberToWorkspaceDto,
+        },
+        options,
+    );
+};
+
 /**
  * @summary Получение пространства
  */
-export const workspaceControllerFindOne = (
-    id: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<FindWorkspaceResponseDto>(
-      {url: `/api/workspace/${id}`, method: 'GET'
-    },
-      options);
-    }
-  
+export const workspaceControllerFindOne = (id: string, options?: SecondParameter<typeof customInstance>) => {
+    return customInstance<FindWorkspaceResponseDto>(
+        {
+            url: `/api/workspace/${id}`,
+            method: "GET",
+        },
+        options,
+    );
+};
+
 /**
  * @summary Создание проекта
  */
 export const projectControllerCreate = (
     createProjectDto: BodyType<CreateProjectDto>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<CreateProjectResponseDto>(
-      {url: `/api/project`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createProjectDto
-    },
-      options);
-    }
-  
+    options?: SecondParameter<typeof customInstance>,
+) => {
+    return customInstance<CreateProjectResponseDto>(
+        {
+            url: `/api/project`,
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            data: createProjectDto,
+        },
+        options,
+    );
+};
+
 /**
  * @summary Получение всех проектов в пространстве
  */
 export const projectControllerFindAllBuWorkspace = (
     workspaceId: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<FindAllProjectByWorkspaceResponseDto>(
-      {url: `/api/project/by-workspace/${workspaceId}`, method: 'GET'
-    },
-      options);
-    }
-  
+    options?: SecondParameter<typeof customInstance>,
+) => {
+    return customInstance<FindAllProjectByWorkspaceResponseDto>(
+        {
+            url: `/api/project/by-workspace/${workspaceId}`,
+            method: "GET",
+        },
+        options,
+    );
+};
+
 /**
  * @summary Создание микросервиса (схемы)
  */
 export const microserviceControllerCreate = (
     createMicroserviceDto: BodyType<CreateMicroserviceDto>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<unknown>(
-      {url: `/api/microservice`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createMicroserviceDto
-    },
-      options);
-    }
-  
+    options?: SecondParameter<typeof customInstance>,
+) => {
+    return customInstance<unknown>(
+        {
+            url: `/api/microservice`,
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            data: createMicroserviceDto,
+        },
+        options,
+    );
+};
+
 /**
  * @summary Получение схемы
  */
-export const microserviceControllerFindOne = (
-    id: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<GetMicroserviceResponseDto>(
-      {url: `/api/microservice/${id}`, method: 'GET'
-    },
-      options);
-    }
-  
+export const microserviceControllerFindOne = (id: string, options?: SecondParameter<typeof customInstance>) => {
+    return customInstance<GetMicroserviceResponseDto>(
+        {
+            url: `/api/microservice/${id}`,
+            method: "GET",
+        },
+        options,
+    );
+};
+
 /**
  * @summary Создание сниппета
  */
 export const snippetControllerCreate = (
     createSnippetDto: BodyType<CreateSnippetDto>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<unknown>(
-      {url: `/api/snippet`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createSnippetDto
-    },
-      options);
-    }
-  
+    options?: SecondParameter<typeof customInstance>,
+) => {
+    return customInstance<unknown>(
+        {
+            url: `/api/snippet`,
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            data: createSnippetDto,
+        },
+        options,
+    );
+};
+
 /**
  * @summary Получение всех сниппетов пользователя
  */
-export const snippetControllerFindAll = (
-    
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<unknown>(
-      {url: `/api/snippet`, method: 'GET'
-    },
-      options);
-    }
-  
+export const snippetControllerFindAll = (options?: SecondParameter<typeof customInstance>) => {
+    return customInstance<unknown>(
+        {
+            url: `/api/snippet`,
+            method: "GET",
+        },
+        options,
+    );
+};
+
 /**
  * @summary Обновление сниппета
  */
 export const snippetControllerUpdate = (
     id: string,
     updateSnippetDto: BodyType<UpdateSnippetDto>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<unknown>(
-      {url: `/api/snippet/${id}`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: updateSnippetDto
-    },
-      options);
-    }
-  
+    options?: SecondParameter<typeof customInstance>,
+) => {
+    return customInstance<unknown>(
+        {
+            url: `/api/snippet/${id}`,
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            data: updateSnippetDto,
+        },
+        options,
+    );
+};
+
 /**
  * @summary Удаление сниппета
  */
-export const snippetControllerRemove = (
-    id: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<void>(
-      {url: `/api/snippet/${id}`, method: 'DELETE'
-    },
-      options);
-    }
-  
+export const snippetControllerRemove = (id: string, options?: SecondParameter<typeof customInstance>) => {
+    return customInstance<void>(
+        {
+            url: `/api/snippet/${id}`,
+            method: "DELETE",
+        },
+        options,
+    );
+};
+
 /**
  * @summary Проверка работоспособности БД
  */
-export const appControllerGetHealth = (
-    
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<AppControllerGetHealth200>(
-      {url: `/api/health`, method: 'GET'
-    },
-      options);
-    }
-  
-export type AuthControllerRegisterResult = NonNullable<Awaited<ReturnType<typeof authControllerRegister>>>
-export type AuthControllerLoginResult = NonNullable<Awaited<ReturnType<typeof authControllerLogin>>>
-export type AuthControllerCallbackResult = NonNullable<Awaited<ReturnType<typeof authControllerCallback>>>
-export type AuthControllerConnectResult = NonNullable<Awaited<ReturnType<typeof authControllerConnect>>>
-export type UserControllerFindProfileResult = NonNullable<Awaited<ReturnType<typeof userControllerFindProfile>>>
-export type UserControllerUpdateProfileResult = NonNullable<Awaited<ReturnType<typeof userControllerUpdateProfile>>>
-export type UserControllerFindByIdResult = NonNullable<Awaited<ReturnType<typeof userControllerFindById>>>
-export type WorkspaceControllerCreateResult = NonNullable<Awaited<ReturnType<typeof workspaceControllerCreate>>>
-export type WorkspaceControllerFindAllResult = NonNullable<Awaited<ReturnType<typeof workspaceControllerFindAll>>>
-export type WorkspaceControllerAddMemberToWorkspaceResult = NonNullable<Awaited<ReturnType<typeof workspaceControllerAddMemberToWorkspace>>>
-export type WorkspaceControllerFindOneResult = NonNullable<Awaited<ReturnType<typeof workspaceControllerFindOne>>>
-export type ProjectControllerCreateResult = NonNullable<Awaited<ReturnType<typeof projectControllerCreate>>>
-export type ProjectControllerFindAllBuWorkspaceResult = NonNullable<Awaited<ReturnType<typeof projectControllerFindAllBuWorkspace>>>
-export type MicroserviceControllerCreateResult = NonNullable<Awaited<ReturnType<typeof microserviceControllerCreate>>>
-export type MicroserviceControllerFindOneResult = NonNullable<Awaited<ReturnType<typeof microserviceControllerFindOne>>>
-export type SnippetControllerCreateResult = NonNullable<Awaited<ReturnType<typeof snippetControllerCreate>>>
-export type SnippetControllerFindAllResult = NonNullable<Awaited<ReturnType<typeof snippetControllerFindAll>>>
-export type SnippetControllerUpdateResult = NonNullable<Awaited<ReturnType<typeof snippetControllerUpdate>>>
-export type SnippetControllerRemoveResult = NonNullable<Awaited<ReturnType<typeof snippetControllerRemove>>>
-export type AppControllerGetHealthResult = NonNullable<Awaited<ReturnType<typeof appControllerGetHealth>>>
+export const appControllerGetHealth = (options?: SecondParameter<typeof customInstance>) => {
+    return customInstance<AppControllerGetHealth200>(
+        {
+            url: `/api/health`,
+            method: "GET",
+        },
+        options,
+    );
+};
+
+export type AuthControllerRegisterResult = NonNullable<Awaited<ReturnType<typeof authControllerRegister>>>;
+export type AuthControllerLoginResult = NonNullable<Awaited<ReturnType<typeof authControllerLogin>>>;
+export type AuthControllerCallbackResult = NonNullable<Awaited<ReturnType<typeof authControllerCallback>>>;
+export type AuthControllerConnectResult = NonNullable<Awaited<ReturnType<typeof authControllerConnect>>>;
+export type UserControllerFindProfileResult = NonNullable<Awaited<ReturnType<typeof userControllerFindProfile>>>;
+export type UserControllerUpdateProfileResult = NonNullable<Awaited<ReturnType<typeof userControllerUpdateProfile>>>;
+export type UserControllerFindByIdResult = NonNullable<Awaited<ReturnType<typeof userControllerFindById>>>;
+export type WorkspaceControllerCreateResult = NonNullable<Awaited<ReturnType<typeof workspaceControllerCreate>>>;
+export type WorkspaceControllerFindAllResult = NonNullable<Awaited<ReturnType<typeof workspaceControllerFindAll>>>;
+export type WorkspaceControllerAddMemberToWorkspaceResult = NonNullable<
+    Awaited<ReturnType<typeof workspaceControllerAddMemberToWorkspace>>
+>;
+export type WorkspaceControllerFindOneResult = NonNullable<Awaited<ReturnType<typeof workspaceControllerFindOne>>>;
+export type ProjectControllerCreateResult = NonNullable<Awaited<ReturnType<typeof projectControllerCreate>>>;
+export type ProjectControllerFindAllBuWorkspaceResult = NonNullable<
+    Awaited<ReturnType<typeof projectControllerFindAllBuWorkspace>>
+>;
+export type MicroserviceControllerCreateResult = NonNullable<Awaited<ReturnType<typeof microserviceControllerCreate>>>;
+export type MicroserviceControllerFindOneResult = NonNullable<
+    Awaited<ReturnType<typeof microserviceControllerFindOne>>
+>;
+export type SnippetControllerCreateResult = NonNullable<Awaited<ReturnType<typeof snippetControllerCreate>>>;
+export type SnippetControllerFindAllResult = NonNullable<Awaited<ReturnType<typeof snippetControllerFindAll>>>;
+export type SnippetControllerUpdateResult = NonNullable<Awaited<ReturnType<typeof snippetControllerUpdate>>>;
+export type SnippetControllerRemoveResult = NonNullable<Awaited<ReturnType<typeof snippetControllerRemove>>>;
+export type AppControllerGetHealthResult = NonNullable<Awaited<ReturnType<typeof appControllerGetHealth>>>;

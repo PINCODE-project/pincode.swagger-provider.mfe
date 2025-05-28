@@ -1,4 +1,5 @@
 import { projectControllerCreate, projectControllerFindAllBuWorkspace } from "@store/api/swagger-provider-api";
+import { sample } from "effector";
 
 import { apiDomain } from "../api";
 
@@ -14,3 +15,9 @@ export const getProjectsFx = apiDomain.effect(projectControllerFindAllBuWorkspac
 $projects.on(getProjectsFx.doneData, (_, response) => response.projects).reset(resetProjects);
 
 export const createProjectFx = apiDomain.effect(projectControllerCreate);
+
+sample({
+    clock: createProjectFx.doneData,
+    fn: (response) => response.project.workspaceId,
+    target: getProjectsFx,
+});

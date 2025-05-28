@@ -2,6 +2,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, useToast } from "@pin-cod
 import { Dispatch, SetStateAction } from "react";
 import { CreateProjectDto } from "@model/index";
 import { createProjectFx } from "@store/project/get-project";
+import { useUnit } from "effector-react";
 
 import { Form } from "./Form";
 
@@ -14,9 +15,10 @@ type Props = {
 
 export const ProjectSidebar = ({ isOpen, setIsOpen, isCreating = false, workspaceId }: Props) => {
     const { toast } = useToast();
+    const [createProject, isLoading] = useUnit([createProjectFx, createProjectFx.pending]);
 
-    const createProject = (data: CreateProjectDto) => {
-        createProjectFx(data)
+    const onCreate = (data: CreateProjectDto) => {
+        createProject(data)
             .then(() => {
                 setIsOpen(false);
                 toast({ id: "successCreateWorkspace", title: "Проект успешно создан!" });
@@ -32,7 +34,7 @@ export const ProjectSidebar = ({ isOpen, setIsOpen, isCreating = false, workspac
 
     const onSubmit = (data: CreateProjectDto) => {
         if (isCreating) {
-            createProject(data);
+            onCreate(data);
         } else {
             throw new Error("Not implement");
         }
@@ -48,6 +50,7 @@ export const ProjectSidebar = ({ isOpen, setIsOpen, isCreating = false, workspac
                     onSubmit={onSubmit}
                     workspaceId={workspaceId}
                     submitButtonText={isCreating ? "Создать" : "Сохранить"}
+                    isLoading={isLoading}
                 />
             </SheetContent>
         </Sheet>

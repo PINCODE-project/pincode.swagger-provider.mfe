@@ -6,17 +6,13 @@ import RequestBodyEditorPlugin from "@components/SwaggerUI/plugins/RequestBodyEd
 import { $microservice, getMicroserviceFx } from "@store/microservice/get-microservice.ts";
 import { useUnit } from "effector-react";
 import Loader from "@components/Loader";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Button } from "@pin-code/uikit.lib";
-import { Plus } from "lucide-react";
-import { MicroserviceSidebar } from "@domain/microservice/components/MicroserviceSidebar";
 
 const MicroserviceSchemePage = () => {
     const { microserviceId } = useParams();
     const microservice = useUnit($microservice);
     const [getMicroservice, isLoadingMicroservice] = useUnit([getMicroserviceFx, getMicroserviceFx.pending]);
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
         getMicroservice(microserviceId ?? "");
@@ -28,13 +24,9 @@ const MicroserviceSchemePage = () => {
 
     return (
         <>
-            <div className="flex justify-between items-center mb-4">
-                <h1 className="text-xl font-semibold">{microservice?.name}</h1>
-                <Button onClick={() => setIsSidebarOpen(true)} variant="default">
-                    <Plus className="mr-2 h-4 w-4" />
-                    Создать микросервис
-                </Button>
-            </div>
+            {/* <div className="flex justify-between items-center mb-4"> */}
+            {/*    <h1 className="text-xl font-semibold">{microservice?.name}</h1> */}
+            {/* </div> */}
             <SwaggerUI
                 // filter={true}
                 spec={microservice?.content}
@@ -94,11 +86,6 @@ const MicroserviceSchemePage = () => {
                     OperationSummaryPlugin,
                     RequestBodyEditorPlugin,
                 ]}
-            />
-            <MicroserviceSidebar 
-                isOpen={isSidebarOpen} 
-                setIsOpen={setIsSidebarOpen} 
-                isCreating={true} 
             />
         </>
     );

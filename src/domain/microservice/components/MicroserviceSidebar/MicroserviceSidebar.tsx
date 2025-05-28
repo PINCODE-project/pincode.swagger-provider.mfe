@@ -1,6 +1,7 @@
 import { Sheet, SheetContent, SheetHeader, SheetTitle, useToast } from "@pin-code/uikit.lib";
 import { CreateMicroserviceDto } from "@model/index";
 import { createMicroserviceFx } from "@store/microservice/create-microservice";
+import { useParams } from "react-router-dom";
 
 import { Form } from "./Form";
 
@@ -11,10 +12,12 @@ type Props = {
 };
 
 export const MicroserviceSidebar = ({ isOpen, setIsOpen, isCreating = false }: Props) => {
+    const { workspaceId } = useParams();
     const { toast } = useToast();
 
     const createMicroservice = (data: CreateMicroserviceDto) => {
-        createMicroserviceFx(data)
+        // @ts-ignore
+        createMicroserviceFx({ ...data, workspaceId })
             .then(() => {
                 setIsOpen(false);
                 toast({ id: "successCreateMicroservice", title: "Микросервис успешно создан!" });
@@ -46,4 +49,4 @@ export const MicroserviceSidebar = ({ isOpen, setIsOpen, isCreating = false }: P
             </SheetContent>
         </Sheet>
     );
-}; 
+};
